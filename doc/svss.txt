@@ -1,0 +1,81 @@
+*svss.txt*  SVSS's vim style sheet
+
+
+==============================================================================
+CONTENTS                                                       *svss-contents*
+
+  1. Intro ....................... |svss-intro|
+  2. Quickstart .................. |svss-quickstart|
+  3. Syntax ...................... |svss-syntax|
+  4. Commands .................... |svss-commands|
+  5. Options ..................... |svss-options|
+  6. About ....................... |svss-about|
+
+
+==============================================================================
+1. Intro                                                          *svss-intro*
+
+Are you a good friends with CSS or SCSS?
+*SVSS* is a style sheet for Vim. You can easily create your own color scheme
+with SCSS-like syntax. For example:
+>
+    $base-hue: 240;
+    Normal {
+        guibg: hsl($base-hue, 0, 0);
+        guifg: hsl($base-hue, 100%, 50%);
+    }
+<
+It will be compiled as the following command:
+>
+    hi! Normal guibg=#00000 guifg=#0000ff
+<
+
+==============================================================================
+2. Quickstart                                                *svss-quickstart*
+
+TODO
+
+
+==============================================================================
+3. Syntax                                                        *svss-syntax*
+
+TODO
+
+
+==============================================================================
+4. Commands                                                    *svss-commands*
+
+:SvssScan                                                          *:SvssScan*
+                        Scan highlighting of the current buffer and convert
+                        it into SVSS.
+
+:SvssCompileBuffer [file]                                 *:SvssCompileBuffer*
+                        Compile the current buffer, and show compilation
+                        result if succeed. If [file] is not specified,
+                        compilation result will be output as a new buffer.
+
+:SvssSource                                                      *:SvssSource*
+                        Source the current buffer.
+
+
+==============================================================================
+5. Options                                                      *svss-options*
+
+g:svss_auto_source                                        *g:svss_auto_source*
+                        TODO
+
+g:svss_template                                              *g:svss_template*
+                        TODO
+
+
+==============================================================================
+6. About                                                          *svss-about*
+
+|svss.vim| is developed by cocopon and licensed under the MIT License.
+Visit the project page for the latest version:
+
+    https://github.com/cocopon/svss.vim
+
+
+==============================================================================
+vim:ft=help:norl:ts=8:tw=78:
