@@ -31,6 +31,9 @@ function! svss#source()
 	let compiler = s:build_compiler()
 	let data = compiler.compile(ruleset)
 
+	" Reset all highlighting first
+	hi clear
+
 	for cmd in data.highlights
 		execute cmd
 	endfor
