@@ -53,18 +53,6 @@ function! svss#parser#parse_expression(lexer)
 endfunction
 
 
-function! svss#parser#parse_declaration_value(lexer)
-	let result = svss#parser#parse_expression(a:lexer)
-
-	let token = svss#parser#next_token(a:lexer)
-	if !s:is_token(token, 'symbol', ';')
-		throw 'Missing trailing semicolon of the declaration'
-	endif
-
-	return result
-endfunction
-
-
 function! svss#parser#parse_declaration(lexer)
 	let property = svss#parser#next_token(a:lexer).text
 
@@ -73,7 +61,12 @@ function! svss#parser#parse_declaration(lexer)
 		throw 'Missing declaration separator'
 	endif
 
-	let value = svss#parser#parse_declaration_value(a:lexer)
+	let value = svss#parser#parse_expression(a:lexer)
+
+	let token = svss#parser#next_token(a:lexer)
+	if !s:is_token(token, 'symbol', ';')
+		throw 'Missing trailing semicolon of the declaration'
+	endif
 
 	return svss#declaration#new(property, value)
 endfunction
