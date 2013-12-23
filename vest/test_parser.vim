@@ -39,13 +39,22 @@ Context Source.run()
 	It parses rule
 		let lexer = s:lexer('Comment {ctermbg: 127; ctermfg: 255;}')
 		let result = svss#parser#parse_rule(lexer)
-		ShouldEqual result.selector(), 'Comment'
+		let selectors = result.selectors()
+		ShouldEqual len(selectors), 1
+		ShouldEqual selectors[0], 'Comment'
 		let decls = result.declarations()
 		ShouldEqual len(decls), 2
 		ShouldEqual decls[0].property(), 'ctermbg'
 		ShouldEqual decls[0].value().value(), '127'
 		ShouldEqual decls[1].property(), 'ctermfg'
 		ShouldEqual decls[1].value().value(), '255'
+
+		let lexer = s:lexer('Error, ErrorMsg {ctermbg: 127;}')
+		let result = svss#parser#parse_rule(lexer)
+		let selectors = result.selectors()
+		ShouldEqual len(selectors), 2
+		ShouldEqual selectors[0], 'Error'
+		ShouldEqual selectors[1], 'ErrorMsg'
 	End
 
 	It parses definition

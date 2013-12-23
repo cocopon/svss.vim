@@ -84,7 +84,8 @@ endfunction
 function! svss#decompiler#rule(rule)
 	let lines = []
 
-	call add(lines, printf('%s {', a:rule.selector()))
+	let selectors = join(a:rule.selectors(), ', ')
+	call add(lines, printf('%s {', selectors))
 	for declaration in a:rule.declarations()
 		call add(lines, printf('%s;', svss#decompiler#declaration(declaration)))
 	endfor

@@ -8,13 +8,13 @@ set cpo&vim
 
 let s:method_names = [
 			\ 	'declarations',
-			\ 	'selector',
+			\ 	'selectors',
 			\ ]
 
 
-function! svss#rule#new(selector, declarations)
+function! svss#rule#new(selectors, declarations)
 	let rule = {}
-	let rule.selector_ = a:selector
+	let rule.selectors_ = a:selectors
 	let rule.declarations_ = a:declarations
 
 	call svss#util#class#setup_methods(
@@ -26,8 +26,8 @@ function! svss#rule#new(selector, declarations)
 endfunction
 
 
-function! svss#rule#selector() dict
-	return self.selector_
+function! svss#rule#selectors() dict
+	return self.selectors_
 endfunction
 
 

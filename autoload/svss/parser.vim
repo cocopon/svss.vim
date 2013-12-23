@@ -73,11 +73,23 @@ endfunction
 
 
 function! svss#parser#parse_rule(lexer)
-	let selector = svss#parser#next_token(a:lexer).text
+	let selectors = []
+	while a:lexer.has_next()
+		call add(selectors, svss#parser#next_token(a:lexer).text)
 
-	let brace = svss#parser#next_token(a:lexer)
-	if !s:is_token(brace, 'symbol', '{')
-		throw 'Missing open brace of the rule'
+		let token = svss#parser#next_token(a:lexer)
+		if s:is_token(token, 'symbol', '{')
+			break
+		endif
+
+		if !s:is_token(token, 'symbol', ',')
+			throw printf('Invalid token: %s',
+						\ string(token))
+		endif
+	endwhile
+
+	if empty(selectors)
+		throw 'No selector'
 	endif
 
 	let decls = []
@@ -91,7 +103,7 @@ function! svss#parser#parse_rule(lexer)
 		call add(decls, svss#parser#parse_declaration(a:lexer))
 	endwhile
 
-	return svss#rule#new(selector, decls)
+	return svss#rule#new(selectors, decls)
 endfunction
 
 

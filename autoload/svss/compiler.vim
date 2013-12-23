@@ -69,20 +69,24 @@ function! svss#compiler#compile_rule_(ruleset, rule) dict
 		return ''
 	endif
 
-	let comps = ['hi' . (self.bang_ ? '!' : '')]
-	if self.def_
-		call add(comps, 'def')
-	endif
-
-	call add(comps, a:rule.selector())
-
 	let args = []
 	for declaration in declarations
 		call add(args, self.compile_declaration_(a:ruleset, a:rule, declaration))
 	endfor
-	call add(comps, join(args))
 
-	return join(comps)
+	let cmds = []
+	for selector in a:rule.selectors()
+		let comps = ['hi' . (self.bang_ ? '!' : '')]
+		if self.def_
+			call add(comps, 'def')
+		endif
+		call add(comps, selector)
+		call add(comps, join(args))
+
+		call add(cmds, join(comps))
+	endfor
+
+	return cmds
 endfunction
 
 
@@ -117,12 +121,7 @@ function! svss#compiler#compile_internal_(ruleset) dict
 
 	let hi_cmds = []
 	for rule in a:ruleset.rules()
-		let hi_cmd = self.compile_rule_(a:ruleset, rule)
-		if empty(hi_cmd)
-			continue
-		endif
-
-		call add(hi_cmds, hi_cmd)
+		call extend(hi_cmds, self.compile_rule_(a:ruleset, rule))
 	endfor
 	call add(hi_cmds, '')
 	for directive in a:ruleset.find_directives('link')

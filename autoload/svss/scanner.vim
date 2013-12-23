@@ -61,7 +61,7 @@ function! s:rule(name, attrs)
 		unlet value
 	endfor
 
-	return svss#rule#new(a:name, declarations)
+	return svss#rule#new([a:name], declarations)
 endfunction
 
 
