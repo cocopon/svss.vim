@@ -40,7 +40,7 @@ endfunction
 
 function! svss#compiler#compile_color_(ruleset, color) dict
 	let ToRgb = function(printf('svss#color#%s#to_rgb', a:color.space()))
-	let comps = map(a:color.components(), 'v:val.calculate(a:ruleset)')
+	let comps = map(a:color.components(), 'v:val.evaluate(a:ruleset)')
 	let rgb_comps = ToRgb(comps)
 	return svss#util#color#join(rgb_comps)
 endfunction
@@ -51,7 +51,7 @@ function! svss#compiler#compile_value_(ruleset, value) dict
 		return a:value
 	endif
 
-	return a:value.calculate(a:ruleset)
+	return a:value.evaluate(a:ruleset)
 endfunction
 
 

@@ -7,7 +7,7 @@ set cpo&vim
 
 
 let s:method_names = [
-			\ 	'calculate',
+			\ 	'evaluate',
 			\ 	'name',
 			\ 	'type',
 			\ ]
@@ -36,10 +36,10 @@ function! svss#variable#name() dict
 endfunction
 
 
-function! svss#variable#calculate(ruleset) dict
+function! svss#variable#evaluate(ruleset) dict
 	let value = a:ruleset.variable_value(self.name_)
 	" TODO: Detect circular reference
-	return value.calculate(a:ruleset)
+	return value.evaluate(a:ruleset)
 endfunction
 
 

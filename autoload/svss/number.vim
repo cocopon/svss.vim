@@ -7,7 +7,7 @@ set cpo&vim
 
 
 let s:method_names = [
-			\ 	'calculate',
+			\ 	'evaluate',
 			\ 	'type',
 			\ 	'value',
 			\ ]
@@ -36,7 +36,7 @@ function! svss#number#value() dict
 endfunction
 
 
-function! svss#number#calculate(ruleset) dict
+function! svss#number#evaluate(ruleset) dict
 	let value = str2float(self.value_)
 
 	if self.value_[len(self.value_) - 1] == '%'

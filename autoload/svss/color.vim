@@ -7,7 +7,7 @@ set cpo&vim
 
 
 let s:method_names = [
-			\ 	'calculate',
+			\ 	'evaluate',
 			\ 	'components',
 			\ 	'space',
 			\ 	'type',
@@ -43,9 +43,9 @@ function! svss#color#components() dict
 endfunction
 
 
-function! svss#color#calculate(ruleset) dict
+function! svss#color#evaluate(ruleset) dict
 	let ToRgb = function(printf('svss#color#%s#to_rgb', self.space_))
-	let comps = map(copy(self.comps_), 'v:val.calculate(a:ruleset)')
+	let comps = map(copy(self.comps_), 'v:val.evaluate(a:ruleset)')
 	let rgb_comps = ToRgb(comps)
 	return svss#util#color#join(rgb_comps)
 endfunction
