@@ -59,8 +59,7 @@ endfunction
 " Local {{{
 function! s:parse(lines)
 	let text = join(a:lines, "\n")
-	let parser = svss#parser#new()
-	return parser.parse(text)
+	return svss#parser#parse(text)
 endfunction
 
 
