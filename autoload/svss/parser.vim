@@ -204,7 +204,7 @@ endfunction
 
 
 function! s:is_color(token)
-	return a:token.text ==# 'rgb' || a:token.text ==# 'hsl'
+	return svss#color#exists_space(a:token.text)
 endfunction
 
 
