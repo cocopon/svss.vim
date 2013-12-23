@@ -74,6 +74,31 @@ Context Source.run()
 		let result = svss#parser#parse_definition(lexer)
 		ShouldEqual result.value().type(), 'variable'
 	End
+
+	It parses function
+		let lexer = s:lexer('func("a", "b", "c")')
+		let result = svss#parser#parse_function(lexer)
+		ShouldEqual result.type(), 'function'
+		ShouldEqual result.name(), 'func'
+		let args = result.arguments()
+		ShouldEqual len(args), 3
+		ShouldEqual args[0].value(), 'a'
+		ShouldEqual args[1].value(), 'b'
+		ShouldEqual args[2].value(), 'c'
+
+		let lexer = s:lexer('func("a", "b", $foo: "c", $bar: "d")')
+		let result = svss#parser#parse_function(lexer)
+		ShouldEqual result.type(), 'function'
+		ShouldEqual result.name(), 'func'
+		let args = result.arguments()
+		ShouldEqual len(args), 2
+		ShouldEqual args[0].value(), 'a'
+		ShouldEqual args[1].value(), 'b'
+		let opt_args = result.opt_arguments()
+		ShouldEqual len(opt_args), 2
+		ShouldEqual opt_args['foo'].value(), 'c'
+		ShouldEqual opt_args['bar'].value(), 'd'
+	End
 End
 
 

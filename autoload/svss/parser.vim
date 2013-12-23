@@ -35,6 +35,48 @@ function! svss#parser#parse_color(lexer)
 endfunction
 
 
+function! svss#parser#parse_function(lexer)
+	let args = []
+	let opt_args = {}
+
+	let name = svss#parser#next_token(a:lexer).text
+
+	let token = svss#parser#next_token(a:lexer)
+	if !s:is_token(token, 'symbol', '(')
+		throw printf('Missing open parenthesis of function: %s',
+					\ name)
+	endif
+
+	while a:lexer.has_next()
+		let first_token = svss#parser#next_token(a:lexer)
+		let second_token = svss#parser#next_token(a:lexer)
+		if first_token.type == 'variable'
+					\ && s:is_token(second_token, 'symbol', ':')
+			" Named argument
+			let opt_args[first_token.text] = svss#parser#parse_expression(a:lexer)
+		else
+			call a:lexer.unread()
+			call a:lexer.unread()
+			call add(args, svss#parser#parse_expression(a:lexer))
+		endif
+
+		let token = svss#parser#next_token(a:lexer)
+		if !s:is_token(token, 'symbol', ',')
+			call a:lexer.unread()
+			break
+		endif
+	endwhile
+
+	let token = svss#parser#next_token(a:lexer)
+	if !s:is_token(token, 'symbol', ')')
+		throw printf('Missing closed parenthesis of function: %s',
+					\ name)
+	endif
+
+	return svss#function#new(name, args, opt_args)
+endfunction
+
+
 function! svss#parser#parse_expression(lexer)
 	let token = svss#parser#next_token(a:lexer)
 
@@ -42,9 +84,14 @@ function! svss#parser#parse_expression(lexer)
 		let result = svss#number#new(token.text)
 	elseif token.type ==# 'variable'
 		let result = svss#variable#new(token.text)
+	elseif token.type ==# 'string'
+		let result = svss#string#new(token.text)
 	elseif s:is_color(token)
 		call a:lexer.unread()
 		let result = svss#parser#parse_color(a:lexer)
+	elseif s:is_function(token)
+		call a:lexer.unread()
+		let result = svss#parser#parse_function(a:lexer)
 	else
 		throw printf('Unexpected type: %s',
 					\ token.type)
@@ -198,6 +245,7 @@ function! svss#parser#parse(text)
 endfunction
 
 
+" private {{{
 function! s:is_token(token, type, text)
 	return a:token.type ==# a:type && a:token.text ==# a:text
 endfunction
@@ -206,6 +254,12 @@ endfunction
 function! s:is_color(token)
 	return svss#color#exists_space(a:token.text)
 endfunction
+
+
+function! s:is_function(token)
+	return svss#function#exists(a:token.text)
+endfunction
+" }}}
 
 
 let &cpo = s:save_cpo
