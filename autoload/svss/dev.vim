@@ -8,14 +8,50 @@ set cpo&vim
 
 function! svss#dev#inspect()
 	let synid = synID(line('.'), col('.'), 1)
-	let result = synIDattr(synid, 'name')
+	let names = exists(':ColorSwatchGenerate')
+				\ ? s:hi_chain_with_colorswatch(synid)
+				\ : s:hi_chain(synid)
+	echo join(names, ' -> ')
+endfunction
 
-	let original = synIDtrans(synid)
-	if synid != original
-		let result .= ' -> ' . synIDattr(original, 'name')
+
+function! s:hi_chain(synid)
+	let name = synIDattr(a:synid, 'name')
+	let names = []
+
+	call add(names, name)
+
+	let original = synIDtrans(a:synid)
+	if a:synid != original
+		call add(names, synIDattr(original, 'name'))
 	endif
 
-	echo result
+	return names
+endfunction
+
+
+" Trace hi-group link with colorswatch.vim.
+" (It can show more detailed information)
+function! s:hi_chain_with_colorswatch(synid)
+	let entries = colorswatch#source#all#collect()
+	let entryset = colorswatch#entryset#new(entries)
+
+	let name = synIDattr(a:synid, 'name')
+	let entry = entryset.find_entry(name)
+	let names = []
+
+	while !empty(entry)
+		let name = entry.get_name()
+		call add(names, name)
+
+		if !entry.has_link()
+			break
+		endif
+
+		let entry = entryset.find_entry(entry.get_link())
+	endwhile
+
+	return names
 endfunction
 
 
