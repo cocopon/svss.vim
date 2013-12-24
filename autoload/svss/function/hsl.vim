@@ -13,7 +13,8 @@ endfunction
 
 function! svss#function#hsl#execute(ruleset, func)
 	call svss#function#validate_total_arguments(a:func, 3)
-	let rgb_comps = svss#color#hsl#to_rgb(a:func.arguments())
+	let comps = map(copy(a:func.arguments()), 'v:val.evaluate(a:ruleset)')
+	let rgb_comps = svss#color#hsl#to_rgb(comps)
 	return svss#color#join(rgb_comps)
 endfunction
 

@@ -13,7 +13,8 @@ endfunction
 
 function! svss#function#rgb#execute(ruleset, func)
 	call svss#function#validate_total_arguments(a:func, 3)
-	return svss#color#join(a:func.arguments())
+	let comps = map(copy(a:func.arguments()), 'v:val.evaluate(a:ruleset)')
+	return svss#color#join(comps)
 endfunction
 
 
