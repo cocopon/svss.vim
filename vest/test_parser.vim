@@ -93,6 +93,30 @@ Context Source.run()
 
 		unlet lexer result args opt_args
 	End
+
+	It parses value
+		" number
+		let lexer = s:lexer('-3.1416')
+		let result = svss#parser#parse_value(lexer)
+		ShouldEqual result.type(), 'number'
+
+		" variable
+		let lexer = s:lexer('$foobar')
+		let result = svss#parser#parse_value(lexer)
+		ShouldEqual result.type(), 'variable'
+
+		" string
+		let lexer = s:lexer('"hello, world"')
+		let result = svss#parser#parse_value(lexer)
+		ShouldEqual result.type(), 'string'
+
+		" color
+		let lexer = s:lexer('#112233')
+		let result = svss#parser#parse_value(lexer)
+		ShouldEqual result.type(), 'color'
+
+		unlet lexer result
+	End
 End
 
 

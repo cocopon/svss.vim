@@ -24,11 +24,11 @@ function! svss#parser#parse_function(lexer)
 		if first_token.type == 'variable'
 					\ && s:is_token(second_token, 'symbol', ':')
 			" Named argument
-			let opt_args[first_token.text] = svss#parser#parse_expression(a:lexer)
+			let opt_args[first_token.text] = svss#parser#parse_value(a:lexer)
 		else
 			call a:lexer.unread()
 			call a:lexer.unread()
-			call add(args, svss#parser#parse_expression(a:lexer))
+			call add(args, svss#parser#parse_value(a:lexer))
 		endif
 
 		let token = svss#parser#next_token(a:lexer)
@@ -48,7 +48,7 @@ function! svss#parser#parse_function(lexer)
 endfunction
 
 
-function! svss#parser#parse_expression(lexer)
+function! svss#parser#parse_value(lexer)
 	let token = svss#parser#next_token(a:lexer)
 
 	if token.type ==# 'number'
@@ -57,12 +57,14 @@ function! svss#parser#parse_expression(lexer)
 		let result = svss#value#variable#new(token.text)
 	elseif token.type ==# 'string'
 		let result = svss#value#string#new(token.text)
+	elseif token.type ==# 'color'
+		let result = svss#value#color#new('rgb', svss#color#split(token.text))
 	elseif s:is_function(token)
 		call a:lexer.unread()
 		let result = svss#parser#parse_function(a:lexer)
 	else
-		throw printf('Unexpected type: %s',
-					\ token.type)
+		throw printf('Unexpected type: %s, %s',
+					\ token.type, token.text)
 	endif
 	return result
 endfunction
@@ -76,7 +78,7 @@ function! svss#parser#parse_declaration(lexer)
 		throw 'Missing declaration separator'
 	endif
 
-	let value = svss#parser#parse_expression(a:lexer)
+	let value = svss#parser#parse_value(a:lexer)
 
 	let token = svss#parser#next_token(a:lexer)
 	if !s:is_token(token, 'symbol', ';')
@@ -130,7 +132,7 @@ function! svss#parser#parse_definition(lexer)
 		throw 'Missing definition separator'
 	endif
 
-	let value = svss#parser#parse_expression(a:lexer)
+	let value = svss#parser#parse_value(a:lexer)
 
 	let token = svss#parser#next_token(a:lexer)
 	if !s:is_token(token, 'symbol', ';')

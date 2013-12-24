@@ -11,6 +11,7 @@ let s:method_names = [
 			\ 	'lnum',
 			\ 	'next_token',
 			\ 	'read_chars_',
+			\ 	'read_color_',
 			\ 	'read_comment_',
 			\ 	'read_directive_',
 			\ 	'read_newline_',
@@ -34,6 +35,7 @@ let s:pattern_string_quote = '\(''\|"\)'
 let s:pattern_word = '[a-zA-Z0-9_\-]'
 let s:pattern_whitespace = '\s'
 let s:pattern_newline = '\n'
+let s:color_prefix = '#'
 let s:directive_prefix = '@'
 let s:variable_prefix = '$'
 let s:comment_first_ch = '/'
@@ -177,6 +179,23 @@ function! svss#lexer#read_comment_() dict
 endfunction
 
 
+function! svss#lexer#read_color_() dict
+	let reader = self.reader_
+	let text = ''
+
+	while !reader.is_eof()
+		let ch = reader.read()
+		if ch !~# '[0-9a-f]'
+			break
+		endif
+
+		let text .= ch
+	endwhile
+
+	return s:token('color', text)
+endfunction
+
+
 function! svss#lexer#next_token() dict
 	if self.pos_ <= -1
 		let result = self.buffer_[self.pos_]
@@ -223,8 +242,6 @@ function! svss#lexer#token_type_() dict
 		return ''
 	endif
 
-	let type = 'symbol'
-
 	if ch =~# s:pattern_number
 		let type = 'number'
 	elseif ch =~# s:pattern_word
@@ -239,12 +256,16 @@ function! svss#lexer#token_type_() dict
 		let type = 'variable'
 	elseif ch ==# s:directive_prefix
 		let type = 'directive'
+	elseif ch ==# s:color_prefix
+		let type = 'color'
 	elseif ch ==# s:comment_first_ch
 		let next_ch = self.reader_.read()
 		let type = (next_ch ==# s:comment_second_ch)
 					\ ? 'comment'
 					\ : 'symbol'
 		call self.reader_.unread()
+	else
+		let type = 'symbol'
 	endif
 
 	call self.reader_.unread()
