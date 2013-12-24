@@ -7,9 +7,10 @@ CONTENTS                                                       *svss-contents*
   1. Intro ....................... |svss-intro|
   2. Quickstart .................. |svss-quickstart|
   3. Syntax ...................... |svss-syntax|
-  4. Commands .................... |svss-commands|
-  5. Options ..................... |svss-options|
-  6. About ....................... |svss-about|
+  4. Functions ................... |svss-functions|
+  5. Commands .................... |svss-commands|
+  6. Options ..................... |svss-options|
+  7. About ....................... |svss-about|
 
 
 ==============================================================================
@@ -43,7 +44,37 @@ TODO
 
 
 ==============================================================================
-4. Commands                                                    *svss-commands*
+4. Functions                                                  *svss-functions*
+
+adjust-color($color,
+    [$red], [$green], [$blue],
+    [$hue], [$saturation], [$lightness])          *svss-function-adjust-color*
+                        Adjust some components of the specified color.
+>
+                            String {
+                                guifg: adjust-color(
+                                    rgb(0, 127, 0),
+                                    $saturation: +10%,
+                                    $lightness: +10%);
+                            }
+<
+darken($color, $amount)                                 *svss-function-darken*
+                        Make the specified color darken.
+>
+                            String {
+                                guifg: darken(rgb(0, 127, 0), +10%);
+                            }
+<
+lighten($color, $amount)                               *svss-function-lighten*
+                        Make the specified color lighten.
+>
+                            String {
+                                guifg: lighten(rgb(0, 127, 0), +10%);
+                            }
+<
+
+==============================================================================
+5. Commands                                                    *svss-commands*
 
 :SvssScan                                                          *:SvssScan*
                         Scan highlighting of the current buffer and convert
@@ -59,17 +90,18 @@ TODO
 
 
 ==============================================================================
-5. Options                                                      *svss-options*
+6. Options                                                      *svss-options*
 
 g:svss_auto_source                                        *g:svss_auto_source*
-                        TODO
+                        If enabled, source SVSS file automatically when
+                        saving it.
 
 g:svss_template                                              *g:svss_template*
                         TODO
 
 
 ==============================================================================
-6. About                                                          *svss-about*
+7. About                                                          *svss-about*
 
 |svss.vim| is developed by cocopon and licensed under the MIT License.
 Visit the project page for the latest version:
