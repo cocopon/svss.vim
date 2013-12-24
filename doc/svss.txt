@@ -46,10 +46,11 @@ TODO
 ==============================================================================
 4. Functions                                                  *svss-functions*
 
-adjust-color($color,
-    [$red], [$green], [$blue],
-    [$hue], [$saturation], [$lightness])          *svss-function-adjust-color*
-                        Adjust some components of the specified color.
+adjust-color({color}[,                            *svss-function-adjust-color*
+    {red}, {green}, {blue},
+    {hue}, {saturation}, {lightness}])
+                        Adjust some components of the specified color. Use
+                        named parameter to specify each optional arguments.
 >
                             String {
                                 guifg: adjust-color(
@@ -58,28 +59,28 @@ adjust-color($color,
                                     $lightness: +10%);
                             }
 <
-darken($color, $amount)                                 *svss-function-darken*
+darken({color}, {amount})                               *svss-function-darken*
                         Make the specified color darken.
 >
                             String {
                                 guifg: darken(rgb(0, 127, 0), 10%);
                             }
 <
-hsl($hue, $saturation, $lightness)                         *svss-function-hsl*
+hsl({hue}, {saturation}, {lightness})                      *svss-function-hsl*
                         Create a color from HSL components.
 >
                             String {
                                 guifg: hsl(120, 50%, 50%);
                             }
 <
-lighten($color, $amount)                               *svss-function-lighten*
+lighten({color}, {amount})                             *svss-function-lighten*
                         Make the specified color lighten.
 >
                             String {
                                 guifg: lighten(rgb(0, 127, 0), 10%);
                             }
 <
-rgb($red, $green, $blue)                                   *svss-function-rgb*
+rgb({red}, {green}, {blue})                                *svss-function-rgb*
                         Create a color from RGB components.
 >
                             String {
