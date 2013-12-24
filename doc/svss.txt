@@ -88,7 +88,6 @@ mix({color1}, {color2}[, {weight})                         *svss-function-mix*
                                 guibg: mix(#ff0000, #0000ff, 20%);
                             }
 <
-
 rgb({red}, {green}, {blue})                                *svss-function-rgb*
                         Create a color from RGB components.
 >
