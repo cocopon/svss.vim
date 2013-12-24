@@ -46,9 +46,9 @@ function! svss#color#hsl#from_rgb(comps)
 	endif
 
 	let rgb = copy(a:comps)
-	let r = rgb[0] * 1.0
-	let g = rgb[1] * 1.0
-	let b = rgb[2] * 1.0
+	let r = rgb[0] / 255.0
+	let g = rgb[1] / 255.0
+	let b = rgb[2] / 255.0
 
 	let max = (r > g) ? r : g
 	let max = (max > b) ? max : b

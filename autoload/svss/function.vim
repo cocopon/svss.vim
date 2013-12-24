@@ -8,6 +8,7 @@ set cpo&vim
 
 let s:method_names = [
 			\ 	'arguments',
+			\ 	'evaluate',
 			\ 	'name',
 			\ 	'opt_arguments',
 			\ 	'type',
@@ -48,6 +49,20 @@ endfunction
 function! svss#function#opt_arguments() dict
 	return self.opt_args_
 endfunction
+
+
+function! svss#function#evaluate(ruleset) dict
+	try
+		let func_name = printf('svss#function#%s#execute',
+					\ s:normalize_name(self.name_))
+		let result = function(func_name)(a:ruleset, self)
+		return result
+	catch /:E117:/
+		" E117: Unknown function
+		throw printf('Function not found: %s',
+					\ self.name_)
+	endtry
+endfunction
 " }}}
 
 
@@ -65,10 +80,11 @@ function! svss#function#exists(name)
 endfunction
 
 
-function! svss#function#assert_type(value, type)
-	if a:value.type() !=# a:type
-		throw printf('Invalid argument type: %s',
-					\ a:value.type())
+function! svss#function#validate_total_arguments(func, expected)
+	let actual = len(a:func.arguments())
+	if actual != a:expected
+		throw printf('Wrong number of arguments: %d for %d',
+					\ actual, a:expected)
 	endif
 endfunction
 " }}}
