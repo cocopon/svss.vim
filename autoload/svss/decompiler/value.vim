@@ -26,5 +26,10 @@ function! svss#decompiler#value#color(color)
 endfunction
 
 
+function! svss#decompiler#value#word(word)
+	return a:word.value()
+endfunction
+
+
 let &cpo = s:save_cpo
 unlet s:save_cpo

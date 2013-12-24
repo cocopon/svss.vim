@@ -29,7 +29,7 @@ function! svss#scanner#scan()
 	call add(directives, s:string_directive('name', g:colors_name))
 	call add(directives, s:string_directive('maintainer', 'MAINTAINER'))
 	call add(directives, s:string_directive('license', 'LICENSE'))
-	call add(directives, svss#directive#new('background', [&background]))
+	call add(directives, s:word_directive('background', &background))
 
 	for entry in entries
 		if entry.has_link()
@@ -98,6 +98,12 @@ endfunction
 
 function! s:string_directive(name, string)
 	let args = [svss#value#string#new(a:string)]
+	return svss#directive#new(a:name, args)
+endfunction
+
+
+function! s:word_directive(name, word)
+	let args = [svss#value#word#new(a:word)]
 	return svss#directive#new(a:name, args)
 endfunction
 

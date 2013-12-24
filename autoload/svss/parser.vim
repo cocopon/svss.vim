@@ -48,8 +48,32 @@ function! svss#parser#parse_function(lexer)
 endfunction
 
 
+function! svss#parser#parse_list(lexer)
+	let items = []
+
+	while a:lexer.has_next()
+		let token = svss#parser#next_token(a:lexer)
+		if token.type !=# 'word'
+			throw printf('Invalid token type for list item: %s',
+						\ token.type)
+		endif
+
+		call add(items, svss#value#word#new(token.text))
+
+		let token = svss#parser#next_token(a:lexer)
+		if !s:is_token(token, 'symbol', ',')
+			call a:lexer.unread()
+			break
+		endif
+	endwhile
+
+	return svss#value#list#new(items)
+endfunction
+
+
 function! svss#parser#parse_value(lexer)
 	let token = svss#parser#next_token(a:lexer)
+	let result = {}
 
 	if token.type ==# 'number'
 		let result = svss#value#number#new(token.text)
@@ -62,10 +86,16 @@ function! svss#parser#parse_value(lexer)
 	elseif s:is_function(token)
 		call a:lexer.unread()
 		let result = svss#parser#parse_function(a:lexer)
-	else
-		throw printf('Unexpected type: %s, %s',
+	elseif token.type ==# 'word'
+		call a:lexer.unread()
+		let result = svss#parser#parse_list(a:lexer)
+	endif
+
+	if empty(result)
+		throw printf('Unexpected type ''%s'': %s',
 					\ token.type, token.text)
 	endif
+
 	return result
 endfunction
 
