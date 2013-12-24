@@ -27,7 +27,14 @@ endfunction
 
 
 function! svss#decompiler#value#word(word)
-	return a:word.value()
+	return a:word.name()
+endfunction
+
+
+function! svss#decompiler#value#list(list)
+	echo a:list
+	let items = map(copy(a:list.items()), 'v:val.name()')
+	return join(items, ', ')
 endfunction
 
 

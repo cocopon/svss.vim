@@ -8,8 +8,8 @@ set cpo&vim
 
 let s:method_names = [
 			\ 	'evaluate',
+			\ 	'name',
 			\ 	'type',
-			\ 	'value',
 			\ ]
 
 
@@ -31,7 +31,7 @@ function! svss#value#word#type() dict
 endfunction
 
 
-function! svss#value#word#value() dict
+function! svss#value#word#name() dict
 	return self.name_
 endfunction
 

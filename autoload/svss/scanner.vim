@@ -7,17 +7,15 @@ set cpo&vim
 
 
 let s:value_types = {
+			\ 	'cterm': 'list',
 			\ 	'ctermbg': 'raw',
 			\ 	'ctermfg': 'raw',
+			\ 	'gui': 'list',
 			\ 	'guibg': 'color',
 			\ 	'guifg': 'color',
 			\ 	'guisp': 'color',
+			\ 	'term': 'list',
 			\ }
-" TODO: Support following attributes?:
-" - cterm
-" - font
-" - gui
-" - term
 
 
 function! svss#scanner#scan()
@@ -72,7 +70,7 @@ function! s:scan_declaration_value(property, raw_value)
 	endif
 
 	try
-		let scanner_name = printf('svss#scanner#scan_%s', type)
+		let scanner_name = printf('svss#scanner#value#%s', type)
 		let value = function(scanner_name)(a:raw_value)
 		return value
 	catch /:E117:/
@@ -80,19 +78,6 @@ function! s:scan_declaration_value(property, raw_value)
 		throw printf('Unsupported value type: %s',
 					\ type)
 	endtry
-endfunction
-
-
-function! svss#scanner#scan_raw(raw_value)
-	return a:raw_value
-endfunction
-
-
-function! svss#scanner#scan_color(raw_value)
-	let comps = svss#color#split(a:raw_value)
-	return empty(comps)
-				\ ? a:raw_value
-				\ : svss#value#color#new('rgb', comps)
 endfunction
 
 

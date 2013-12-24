@@ -119,11 +119,11 @@ Context Source.run()
 		let lexer = s:lexer('bold, italic, reverse;')
 		let result = svss#parser#parse_value(lexer)
 		ShouldEqual result.type(), 'list'
-		let items = result.value()
+		let items = result.items()
 		ShouldEqual len(items), 3
-		ShouldEqual items[0].value(), 'bold'
-		ShouldEqual items[1].value(), 'italic'
-		ShouldEqual items[2].value(), 'reverse'
+		ShouldEqual items[0].name(), 'bold'
+		ShouldEqual items[1].name(), 'italic'
+		ShouldEqual items[2].name(), 'reverse'
 
 		unlet lexer result items
 	End
