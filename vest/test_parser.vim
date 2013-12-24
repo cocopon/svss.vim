@@ -25,6 +25,8 @@ Context Source.run()
 		ShouldEqual result.type(), 'color'
 		ShouldEqual result.space(), 'hsl'
 		ShouldEqual len(result.components()), 3
+
+		unlet lexer result
 	End
 
 	It parses declaration
@@ -34,6 +36,8 @@ Context Source.run()
 		let value = result.value()
 		ShouldEqual value.type(), 'number'
 		ShouldEqual value.value(), '123'
+
+		unlet lexer result value
 	End
 
 	It parses rule
@@ -55,6 +59,8 @@ Context Source.run()
 		ShouldEqual len(selectors), 2
 		ShouldEqual selectors[0], 'Error'
 		ShouldEqual selectors[1], 'ErrorMsg'
+
+		unlet lexer result selectors decls
 	End
 
 	It parses definition
@@ -73,6 +79,8 @@ Context Source.run()
 		let lexer = s:lexer('$foo: $bar;')
 		let result = svss#parser#parse_definition(lexer)
 		ShouldEqual result.value().type(), 'variable'
+
+		unlet lexer result value
 	End
 
 	It parses function
@@ -98,6 +106,8 @@ Context Source.run()
 		ShouldEqual len(opt_args), 2
 		ShouldEqual opt_args['foo'].value(), 'c'
 		ShouldEqual opt_args['bar'].value(), 'd'
+
+		unlet lexer result args opt_args
 	End
 End
 

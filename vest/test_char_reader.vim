@@ -15,6 +15,8 @@ Context Source.run()
 		ShouldEqual reader.read(), 'T'
 		ShouldEqual reader.read(), 'h'
 		ShouldEqual reader.read(), 'e'
+
+		unlet reader
 	End
 
 	It should be eof
@@ -37,6 +39,8 @@ Context Source.run()
 
 		Should reader.is_eof()
 		Should empty(reader.read())
+
+		unlet reader len i
 	End
 
 	It unreads characters
@@ -50,6 +54,8 @@ Context Source.run()
 		ShouldEqual reader.read(), 'T'
 		ShouldEqual reader.read(), 'h'
 		ShouldEqual reader.read(), 'e'
+
+		unlet reader
 	End
 End
 

@@ -29,7 +29,7 @@ let s:non_significant_tokens = [
 			\ 	'whitespace',
 			\ ]
 let s:buffer_size = 10
-let s:pattern_number = '[0-9.%]'
+let s:pattern_number = '[0-9.%+-]'
 let s:pattern_string_quote = '\(''\|"\)'
 let s:pattern_word = '[a-zA-Z0-9_\-]'
 let s:pattern_whitespace = '\s'

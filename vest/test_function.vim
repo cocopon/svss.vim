@@ -32,6 +32,8 @@ Context Source.run()
 		let func = svss#function#new('lighten', [original, l], {})
 		let result = svss#function#lighten#execute(ruleset, func)
 		ShouldEqual result, '#1d3b59'
+
+		unlet ruleset original l func result
 	End
 End
 

@@ -33,6 +33,8 @@ Context Source.run()
 
 		Should !lexer.has_next()
 		Should empty(lexer.next_token())
+
+		unlet lexer expected_tokens actual
 	End
 
 	It unreads token
@@ -50,6 +52,8 @@ Context Source.run()
 		let t4 = lexer.next_token()
 		ShouldEqual t1.type, t4.type
 		ShouldEqual t1.text, t4.text
+
+		unlet lexer t1 t2 t3 t4
 	End
 
 	It lexes number
@@ -57,6 +61,16 @@ Context Source.run()
 		let token = lexer.next_token()
 		ShouldEqual token.type, 'number'
 		ShouldEqual token.text, '123'
+
+		" Signed number
+		let lexer = s:lexer('-123')
+		let token = lexer.next_token()
+		ShouldEqual token.type, 'number'
+		ShouldEqual token.text, '-123'
+		let lexer = s:lexer('+123')
+		let token = lexer.next_token()
+		ShouldEqual token.type, 'number'
+		ShouldEqual token.text, '+123'
 
 		" Float value
 		let lexer = s:lexer('3.1416')
@@ -69,6 +83,8 @@ Context Source.run()
 		let token = lexer.next_token()
 		ShouldEqual token.type, 'number'
 		ShouldEqual token.text, '120%'
+
+		unlet lexer token
 	End
 
 	It lexes string
@@ -107,6 +123,8 @@ Context Source.run()
 		let token = lexer.next_token()
 		ShouldEqual token.type, 'string'
 		ShouldEqual token.text, 'hello abc world'
+
+		unlet lexer token
 	End
 End
 
