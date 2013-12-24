@@ -27,13 +27,11 @@ function! svss#function#adjust_color#execute(ruleset, func)
 
 	let rgb = color.evaluate(a:ruleset)
 	let rgb_comps = svss#color#split(rgb)
-	echo ['rgb', rgb_comps]
 	let rgb_comps[0] = svss#util#bound(rgb_comps[0] + r, 0, 255)
 	let rgb_comps[1] = svss#util#bound(rgb_comps[1] + g, 0, 255)
 	let rgb_comps[2] = svss#util#bound(rgb_comps[2] + b, 0, 255)
 
 	let hsl_comps = svss#color#hsl#from_rgb(rgb_comps)
-	echo ['hsl', hsl_comps]
 	let hsl_comps[0] = svss#util#bound(hsl_comps[0] + h, 0, 360)
 	let hsl_comps[1] = svss#util#bound(hsl_comps[1] + s, 0, 1.0)
 	let hsl_comps[2] = svss#util#bound(hsl_comps[2] + l, 0, 1.0)
