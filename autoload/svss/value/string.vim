@@ -12,25 +12,25 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#string#new(value)
+function! svss#value#string#new(value)
 	let str = {}
 	let str.value_ = a:value
 
 	call svss#util#class#setup_methods(
 				\ str,
-				\ 'svss#string',
+				\ 'svss#value#string',
 				\ s:method_names)
 
 	return str
 endfunction
 
 
-function! svss#string#type()
+function! svss#value#string#type()
 	return 'string'
 endfunction
 
 
-function! svss#string#value() dict
+function! svss#value#string#value() dict
 	return self.value_
 endfunction
 

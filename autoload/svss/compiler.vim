@@ -8,7 +8,6 @@ set cpo&vim
 
 let s:method_names = [
 			\ 	'compile',
-			\ 	'compile_color_',
 			\ 	'compile_declaration_',
 			\ 	'compile_internal_',
 			\ 	'compile_link_',
@@ -35,14 +34,6 @@ function! svss#compiler#new()
 				\ s:method_names)
 
 	return compiler
-endfunction
-
-
-function! svss#compiler#compile_color_(ruleset, color) dict
-	let ToRgb = function(printf('svss#color#%s#to_rgb', a:color.space()))
-	let comps = map(a:color.components(), 'v:val.evaluate(a:ruleset)')
-	let rgb_comps = ToRgb(comps)
-	return svss#util#color#join(rgb_comps)
 endfunction
 
 

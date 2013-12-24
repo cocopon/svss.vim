@@ -31,7 +31,7 @@ function! svss#parser#parse_color(lexer)
 		endif
 	endwhile
 
-	return svss#color#new(space.text, comps)
+	return svss#value#color#new(space.text, comps)
 endfunction
 
 
@@ -81,11 +81,11 @@ function! svss#parser#parse_expression(lexer)
 	let token = svss#parser#next_token(a:lexer)
 
 	if token.type ==# 'number'
-		let result = svss#number#new(token.text)
+		let result = svss#value#number#new(token.text)
 	elseif token.type ==# 'variable'
-		let result = svss#variable#new(token.text)
+		let result = svss#value#variable#new(token.text)
 	elseif token.type ==# 'string'
-		let result = svss#string#new(token.text)
+		let result = svss#value#string#new(token.text)
 	elseif s:is_color(token)
 		call a:lexer.unread()
 		let result = svss#parser#parse_color(a:lexer)

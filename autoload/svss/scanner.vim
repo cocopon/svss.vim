@@ -92,12 +92,12 @@ function! svss#scanner#scan_color(raw_value)
 	let comps = svss#util#color#split(a:raw_value)
 	return empty(comps)
 				\ ? a:raw_value
-				\ : svss#color#new('rgb', comps)
+				\ : svss#value#color#new('rgb', comps)
 endfunction
 
 
 function! s:string_directive(name, string)
-	let args = [svss#string#new(a:string)]
+	let args = [svss#value#string#new(a:string)]
 	return svss#directive#new(a:name, args)
 endfunction
 

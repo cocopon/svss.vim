@@ -13,30 +13,30 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#number#new(value)
+function! svss#value#number#new(value)
 	let num = {}
 	let num.value_ = a:value
 
 	call svss#util#class#setup_methods(
 				\ num,
-				\ 'svss#number',
+				\ 'svss#value#number',
 				\ s:method_names)
 
 	return num
 endfunction
 
 
-function! svss#number#type()
+function! svss#value#number#type()
 	return 'number'
 endfunction
 
 
-function! svss#number#value() dict
+function! svss#value#number#value() dict
 	return self.value_
 endfunction
 
 
-function! svss#number#evaluate(ruleset) dict
+function! svss#value#number#evaluate(ruleset) dict
 	let value = str2float(self.value_)
 
 	if self.value_[len(self.value_) - 1] == '%'

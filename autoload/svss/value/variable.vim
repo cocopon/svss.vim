@@ -13,30 +13,30 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#variable#new(name)
+function! svss#value#variable#new(name)
 	let var = {}
 	let var.name_ = a:name
 
 	call svss#util#class#setup_methods(
 				\ var,
-				\ 'svss#variable',
+				\ 'svss#value#variable',
 				\ s:method_names)
 
 	return var
 endfunction
 
 
-function! svss#variable#type()
+function! svss#value#variable#type()
 	return 'variable'
 endfunction
 
 
-function! svss#variable#name() dict
+function! svss#value#variable#name() dict
 	return self.name_
 endfunction
 
 
-function! svss#variable#evaluate(ruleset) dict
+function! svss#value#variable#evaluate(ruleset) dict
 	let value = a:ruleset.variable_value(self.name_)
 	" TODO: Detect circular reference
 	return value.evaluate(a:ruleset)
