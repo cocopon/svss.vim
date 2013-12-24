@@ -13,8 +13,10 @@ endfunction
 
 
 function! svss#color#join(comps)
-	let hex = map(a:comps, 'printf("%02x", float2nr(v:val))')
-	return '#' . join(hex, '')
+	let comps = map(copy(a:comps), 'float2nr(v:val)')
+	let comps = map(comps, 'svss#util#bound(v:val, 0, 255)')
+	let comps = map(comps, 'printf("%02x", v:val)')
+	return '#' . join(comps, '')
 endfunction
 
 

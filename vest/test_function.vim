@@ -35,6 +35,24 @@ Context Source.run()
 
 		unlet ruleset original l func result
 	End
+
+	It executes darken
+		let ruleset = s:empty_ruleset()
+
+		let original = s:color('rgb', [0xff, 0xee, 0xdd])
+		let l = s:number(0.1)
+		let func = svss#function#new('darken', [original, l], {})
+		let result = svss#function#darken#execute(ruleset, func)
+		ShouldEqual result, '#ffd4aa'
+
+		let original = s:color('rgb', [0x11, 0x11, 0x11])
+		let l = s:number(0.1)
+		let func = svss#function#new('darken', [original, l], {})
+		let result = svss#function#darken#execute(ruleset, func)
+		ShouldEqual result, '#000000'
+
+		unlet ruleset original l func result
+	End
 End
 
 

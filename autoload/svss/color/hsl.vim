@@ -11,9 +11,9 @@ function! svss#color#hsl#to_rgb(comps)
 		return []
 	endif
 
-	let h = a:comps[0]
-	let s = a:comps[1]
-	let l = a:comps[2]
+	let h = svss#util#bound(a:comps[0], 0, 360)
+	let s = svss#util#bound(a:comps[1], 0, 1.0)
+	let l = svss#util#bound(a:comps[2], 0, 1.0)
 
 	let max = (l <= 0.5) ? (l * (1 + s)) : (l * (1 - s) + s)
 	let min = 2 * l - max
@@ -46,9 +46,9 @@ function! svss#color#hsl#from_rgb(comps)
 	endif
 
 	let rgb = copy(a:comps)
-	let r = rgb[0] / 255.0
-	let g = rgb[1] / 255.0
-	let b = rgb[2] / 255.0
+	let r = svss#util#bound(rgb[0] / 255.0, 0, 1.0)
+	let g = svss#util#bound(rgb[1] / 255.0, 0, 1.0)
+	let b = svss#util#bound(rgb[2] / 255.0, 0, 1.0)
 
 	let max = (r > g) ? r : g
 	let max = (max > b) ? max : b
