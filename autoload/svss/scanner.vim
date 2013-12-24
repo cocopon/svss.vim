@@ -89,7 +89,7 @@ endfunction
 
 
 function! svss#scanner#scan_color(raw_value)
-	let comps = svss#util#color#split(a:raw_value)
+	let comps = svss#color#split(a:raw_value)
 	return empty(comps)
 				\ ? a:raw_value
 				\ : svss#value#color#new('rgb', comps)

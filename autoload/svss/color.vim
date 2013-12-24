@@ -6,6 +6,18 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+function! svss#color#split(hex)
+	let matches = matchlist(a:hex, '^#\(\x\{2}\)\(\x\{2}\)\(\x\{2}\)$')
+	return map(matches[1:3], 'str2nr(v:val, 16)')
+endfunction
+
+
+function! svss#color#join(comps)
+	let hex = map(a:comps, 'printf("%02x", float2nr(v:val))')
+	return '#' . join(hex, '')
+endfunction
+
+
 function! svss#color#exists_space(space)
 	try
 		let name = printf('svss#color#%s#to_rgb', a:space)

@@ -47,7 +47,7 @@ function! svss#value#color#evaluate(ruleset) dict
 	let ToRgb = function(printf('svss#color#%s#to_rgb', self.space_))
 	let comps = map(copy(self.comps_), 'v:val.evaluate(a:ruleset)')
 	let rgb_comps = ToRgb(comps)
-	return svss#util#color#join(rgb_comps)
+	return svss#color#join(rgb_comps)
 endfunction
 
 
