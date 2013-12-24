@@ -14,12 +14,13 @@ let s:method_names = [
 			\ 	'compile_rule_',
 			\ 	'compile_value_',
 			\ ]
-let s:simple_directives = [
-			\ 	'background',
-			\ 	'license',
-			\ 	'maintainer',
-			\ 	'name',
-			\ ]
+let s:simple_directives = {
+			\ 	'background': {'required': 1},
+			\ 	'license':    {'required': 1},
+			\ 	'maintainer': {'required': 1},
+			\ 	'name':       {'required': 1},
+			\ 	'template':   {'required': 0},
+			\ }
 let s:date_format = '%Y-%m-%d %H:%M%z'
 
 
@@ -98,13 +99,17 @@ endfunction
 function! svss#compiler#compile_internal_(ruleset) dict
 	let result = {}
 
-	for name in s:simple_directives
+	for name in keys(s:simple_directives)
 		let directives = a:ruleset.find_directives(name)
-		if empty(directives)
+
+		if s:simple_directives[name].required && empty(directives)
 			throw printf('Requried directive not found: %s',
 						\ name)
 		endif
-		let result[name] = directives[0].argument(0)
+
+		if !empty(directives)
+			let result[name] = directives[0].argument(0)
+		endif
 	endfor
 
 	let result.date = strftime(s:date_format)

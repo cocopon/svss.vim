@@ -6,6 +6,11 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+function! svss#parser#directive#template(lexer)
+	return s:parse_single_text('template', a:lexer)
+endfunction
+
+
 function! svss#parser#directive#name(lexer)
 	return s:parse_single_text('name', a:lexer)
 endfunction

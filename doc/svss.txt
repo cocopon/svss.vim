@@ -119,9 +119,6 @@ g:svss_auto_source                                        *g:svss_auto_source*
                         If enabled, source SVSS file automatically when
                         saving it.
 
-g:svss_template                                              *g:svss_template*
-                        TODO
-
 
 ==============================================================================
 7. About                                                          *svss-about*

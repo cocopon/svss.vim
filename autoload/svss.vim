@@ -70,13 +70,15 @@ endfunction
 
 
 function! s:compile(lines)
-	let template_path = get(g:, 'template', s:default_template_path)
-	let lines = readfile(template_path)
-	let template = svss#template#new(lines, '\${', '}')
-
 	let ruleset = s:parse(a:lines)
 	let compiler = s:build_compiler()
 	let data = compiler.compile(ruleset)
+
+	let template_path = has_key(data, 'template')
+				\ ? join([expand('%:p:h'), data.template], '/')
+				\ : s:default_template_path
+	let lines = readfile(template_path)
+	let template = svss#template#new(lines, '\${', '}')
 
 	return template.apply(data)
 endfunction
