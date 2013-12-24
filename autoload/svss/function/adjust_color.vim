@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#function#adjust_color#ping()
+function! svss#function#adjust_color#exists()
 	return 1
 endfunction
 
@@ -28,24 +28,18 @@ function! svss#function#adjust_color#execute(ruleset, func)
 	let rgb = color.evaluate(a:ruleset)
 	let rgb_comps = svss#color#split(rgb)
 	echo ['rgb', rgb_comps]
-	let rgb_comps[0] = s:bound(rgb_comps[0] + r, 0, 255)
-	let rgb_comps[1] = s:bound(rgb_comps[1] + g, 0, 255)
-	let rgb_comps[2] = s:bound(rgb_comps[2] + b, 0, 255)
+	let rgb_comps[0] = svss#util#bound(rgb_comps[0] + r, 0, 255)
+	let rgb_comps[1] = svss#util#bound(rgb_comps[1] + g, 0, 255)
+	let rgb_comps[2] = svss#util#bound(rgb_comps[2] + b, 0, 255)
 
 	let hsl_comps = svss#color#hsl#from_rgb(rgb_comps)
 	echo ['hsl', hsl_comps]
-	let hsl_comps[0] = s:bound(hsl_comps[0] + h, 0, 360)
-	let hsl_comps[1] = s:bound(hsl_comps[1] + s, 0, 1.0)
-	let hsl_comps[2] = s:bound(hsl_comps[2] + l, 0, 1.0)
+	let hsl_comps[0] = svss#util#bound(hsl_comps[0] + h, 0, 360)
+	let hsl_comps[1] = svss#util#bound(hsl_comps[1] + s, 0, 1.0)
+	let hsl_comps[2] = svss#util#bound(hsl_comps[2] + l, 0, 1.0)
 
 	let result_comps = svss#color#hsl#to_rgb(hsl_comps)
 	return svss#color#join(result_comps)
-endfunction
-
-
-function! s:bound(value, min, max)
-	let result = (a:value < a:min) ? a:min : a:value
-	return (result > a:max) ? a:max : a:value
 endfunction
 
 

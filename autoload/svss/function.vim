@@ -69,7 +69,7 @@ endfunction
 " static {{{
 function! svss#function#exists(name)
 	try
-		let func_name = printf('svss#function#%s#ping',
+		let func_name = printf('svss#function#%s#exists',
 					\ s:normalize_name(a:name))
 		let result = function(func_name)()
 		return 1
