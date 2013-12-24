@@ -6,35 +6,6 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#parser#parse_color(lexer)
-	let space = svss#parser#next_token(a:lexer)
-
-	let token = svss#parser#next_token(a:lexer)
-	if !s:is_token(token, 'symbol', '(')
-		throw 'Missing open brace of the color'
-	endif
-
-	let comps = []
-	while a:lexer.has_next()
-		let expr = svss#parser#parse_expression(a:lexer)
-		if empty(expr)
-			throw 'Expression is empty'
-		endif
-		call add(comps, expr)
-
-		let token = svss#parser#next_token(a:lexer)
-		if s:is_token(token, 'symbol', ')')
-			break
-		endif
-		if !s:is_token(token, 'symbol', ',')
-			throw 'Missing separator of color components'
-		endif
-	endwhile
-
-	return svss#value#color#new(space.text, comps)
-endfunction
-
-
 function! svss#parser#parse_function(lexer)
 	let args = []
 	let opt_args = {}
@@ -86,9 +57,6 @@ function! svss#parser#parse_expression(lexer)
 		let result = svss#value#variable#new(token.text)
 	elseif token.type ==# 'string'
 		let result = svss#value#string#new(token.text)
-	elseif s:is_color(token)
-		call a:lexer.unread()
-		let result = svss#parser#parse_color(a:lexer)
 	elseif s:is_function(token)
 		call a:lexer.unread()
 		let result = svss#parser#parse_function(a:lexer)
@@ -248,11 +216,6 @@ endfunction
 " private {{{
 function! s:is_token(token, type, text)
 	return a:token.type ==# a:type && a:token.text ==# a:text
-endfunction
-
-
-function! s:is_color(token)
-	return svss#color#exists_space(a:token.text)
 endfunction
 
 

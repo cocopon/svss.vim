@@ -13,22 +13,6 @@ endfunction
 
 
 Context Source.run()
-	It parses color
-		let lexer = s:lexer('rgb(180, 0.5, 50%)')
-		let result = svss#parser#parse_color(lexer)
-		ShouldEqual result.type(), 'color'
-		ShouldEqual result.space(), 'rgb'
-		ShouldEqual len(result.components()), 3
-
-		let lexer = s:lexer('hsl(180, 0.5, 50%)')
-		let result = svss#parser#parse_color(lexer)
-		ShouldEqual result.type(), 'color'
-		ShouldEqual result.space(), 'hsl'
-		ShouldEqual len(result.components()), 3
-
-		unlet lexer result
-	End
-
 	It parses declaration
 		let lexer = s:lexer('ctermbg: 123;')
 		let result = svss#parser#parse_declaration(lexer)
@@ -74,7 +58,7 @@ Context Source.run()
 
 		let lexer = s:lexer('$foo: hsl(0, 0, 0);')
 		let result = svss#parser#parse_definition(lexer)
-		ShouldEqual result.value().type(), 'color'
+		ShouldEqual result.value().type(), 'function'
 
 		let lexer = s:lexer('$foo: $bar;')
 		let result = svss#parser#parse_definition(lexer)
