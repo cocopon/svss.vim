@@ -53,6 +53,23 @@ Context Source.run()
 
 		unlet ruleset original l func result
 	End
+
+	It executes mix
+		let ruleset = s:empty_ruleset()
+		let color1 = s:color('rgb', [0xff, 0, 0])
+		let color2 = s:color('rgb', [0, 0, 0xff])
+
+		let func = svss#function#new('darken', [color1, color2], {})
+		let result = svss#function#mix#execute(ruleset, func)
+		ShouldEqual result, '#7f007f'
+
+		let w = s:number(0.2)
+		let func = svss#function#new('darken', [color1, color2, w], {})
+		let result = svss#function#mix#execute(ruleset, func)
+		ShouldEqual result, '#3300cc'
+
+		unlet color1 color2 func result
+	End
 End
 
 

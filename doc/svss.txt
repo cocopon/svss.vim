@@ -54,7 +54,7 @@ adjust-color({color}[,                            *svss-function-adjust-color*
 >
                             String {
                                 guifg: adjust-color(
-                                    rgb(0, 127, 0),
+                                    #007f00,
                                     $saturation: +10%,
                                     $lightness: +10%);
                             }
@@ -63,7 +63,7 @@ darken({color}, {amount})                               *svss-function-darken*
                         Make the specified color darken.
 >
                             String {
-                                guifg: darken(rgb(0, 127, 0), 10%);
+                                guifg: darken(#007f00, 10%);
                             }
 <
 hsl({hue}, {saturation}, {lightness})                      *svss-function-hsl*
@@ -77,9 +77,18 @@ lighten({color}, {amount})                             *svss-function-lighten*
                         Make the specified color lighten.
 >
                             String {
-                                guifg: lighten(rgb(0, 127, 0), 10%);
+                                guifg: lighten(#007f00, 10%);
                             }
 <
+mix({color1}, {color2}[, {weight})                         *svss-function-mix*
+                        Mix two colors. If {weight} is not specified, 50%
+                        will be used.
+>
+                            String {
+                                guibg: mix(#ff0000, #0000ff, 20%);
+                            }
+<
+
 rgb({red}, {green}, {blue})                                *svss-function-rgb*
                         Create a color from RGB components.
 >
