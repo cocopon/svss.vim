@@ -87,10 +87,10 @@ If you want to link a highlight group to another one, use @link directive:
     @link vimContinue to Comment;
 <
 After adding highlight groups, execute |:SvssSource| to apply your color
-scheme and check it works.
-Finally, execute |:SvssCompileBuffer| to compile the current SVSS file:
+scheme and check it works fine.
+Finally, execute |:SvssCompile| to compile the current SVSS file:
 >
-    :SvssCompileBuffer
+    :SvssCompile
 <
 Save it as colors/desseert.vim in the 'runtimepath'. Then you can use your
 color scheme with the following command:
@@ -297,13 +297,14 @@ rgb({red}, {green}, {blue})                                *svss-function-rgb*
                         (this command is at the experimental stage of
                         development, so cannot compile its output yet)
 
-:SvssCompileBuffer [file]                                 *:SvssCompileBuffer*
+:SvssCompile [file]                                             *:SvssCompile*
                         Compile the current buffer, and show compilation
                         result if succeed. If [file] is not specified,
                         compilation result will be output as a new buffer.
 
 :SvssSource                                                      *:SvssSource*
-                        Source the current buffer.
+                        Source the current buffer. Useful for testing your
+                        color scheme.
 
 
 ==============================================================================

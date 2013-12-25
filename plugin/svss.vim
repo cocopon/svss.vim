@@ -7,7 +7,7 @@ set cpo&vim
 
 
 command! -nargs=0 SvssSource call svss#source()
-command! -nargs=? -complete=file SvssCompileBuffer call svss#compile_buffer(<f-args>)
+command! -nargs=? -complete=file SvssCompile call svss#compile_buffer(<f-args>)
 command! -nargs=0 SvssScan call svss#scan()
 
 " For color scheme development
