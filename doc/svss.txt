@@ -1,20 +1,21 @@
-*svss.txt*  SVSS's vim style sheet
+*svss.txt*  SVSS's Vim Style Sheet
 
 
 ==============================================================================
 CONTENTS                                                       *svss-contents*
 
-  1. Intro ....................... |svss-intro|
-  2. Quickstart .................. |svss-quickstart|
-  3. Syntax ...................... |svss-syntax|
-  4. Functions ................... |svss-functions|
-  5. Commands .................... |svss-commands|
-  6. Options ..................... |svss-options|
-  7. About ....................... |svss-about|
+  Intro .......................... |svss-intro|
+  Quickstart ..................... |svss-quickstart|
+  Syntax ......................... |svss-syntax|
+  Directives ..................... |svss-directives|
+  Functions ...................... |svss-functions|
+  Commands ....................... |svss-commands|
+  Options ........................ |svss-options|
+  About .......................... |svss-about|
 
 
 ==============================================================================
-1. Intro                                                          *svss-intro*
+INTRO                                                             *svss-intro*
 
 Are you a good friends with CSS or SCSS?
 *SVSS* is a style sheet for Vim. You can easily create your own color scheme
@@ -32,19 +33,109 @@ It will be compiled as the following command:
 <
 
 ==============================================================================
-2. Quickstart                                                *svss-quickstart*
+QUICKSTART                                                   *svss-quickstart*
+
+First, create a new buffer and add required directives:
+>
+    @name 'dessert';
+    @maintainer 'you <email@example.com>';
+    @license 'MIT';
+    @background dark;
+<
+And them append highlight groups. Here is an example of a rule to set
+attributes of normal text:
+>
+    Normal {
+        guibg: rgb(0, 0, 0);
+        guifg: rgb(255, 255, 255);
+    }
+<
+See |highlight-groups| for available highlight groups, and |highlight-args|
+for available arguments. Here is an example of major arguments:
+>
+    StatusLine {
+        ctermfg: 15;     // White for 256-colors terminal
+        guifg: #ffffff;  // White for GUI
+        cterm: reverse;  // Reverse background and foreground
+        gui: reverse;
+        term: reverse;
+    }
+<
+You can use SCSS-like variable to define common values:
+>
+    $base-hue: 230;
+    Normal {
+        guibg: hsl($base-hue, 20%, 10%);
+        guifg: hsl($base-hue, 10%, 80%);
+    }
+<
+You can also use SCSS-like color functions:
+>
+    LineNr {
+        guibg: lighten($normal-bg, 5%);
+        guifg: lighten($normal-fg, 20%);
+    }
+<
+See |svss-functions| for available functions.
+If you want to link a highlight group to another one, use @link directive:
+>
+    @link vimContinue to Comment;
+<
+After adding highlight groups, execute |:SvssSource| to apply your color
+scheme and check it works.
+Finally, execute |:SvssCompileBuffer| to compile the current SVSS file:
+>
+    :SvssCompileBuffer
+<
+Save it as colors/desseert.vim in the 'runtimepath'. Then you can use your
+color scheme with the following command:
+>
+    :colorscheme dessert
+<
+
+==============================================================================
+SYNTAX                                                           *svss-syntax*
 
 TODO
 
 
 ==============================================================================
-3. Syntax                                                        *svss-syntax*
+DIRECTIVES                                                   *svss-directives*
 
-TODO
-
+@background [background]                           *svss-directive-background*
+                        Used as 'background' of the color scheme.
+>
+                            @background dark;
+<
+@license [license]                                    *svss-directive-license*
+                        License of the color scheme.
+>
+                            @license 'MIT';
+<
+@link [from] to [to]                                     *svss-directive-link*
+                        Link [from] highlight group to [to] one. See
+                        |hi-link| to learn about linking groups of Vim.
+>
+                            @link vimContinue to Comment;
+<
+@maintainer [maintainer]                           *svss-directive-maintainer*
+                        Maintainer of the color scheme.
+>
+                            @maintainer 'you <email@example.com>';
+<
+@name [name]                                             *svss-directive-name*
+                        Used as |g:colors_name| of the color scheme.
+>
+                            @name 'dessert';
+<
+@template [path]                                     *svss-directive-template*
+                        Optional. Custom template for the color scheme.
+>
+                            @template 'template.vim';
+<
 
 ==============================================================================
-4. Functions                                                  *svss-functions*
+FUNCTIONS                                                     *svss-functions*
 
 adjust-color({color}[,                            *svss-function-adjust-color*
     {red}, {green}, {blue},
@@ -97,11 +188,13 @@ rgb({red}, {green}, {blue})                                *svss-function-rgb*
 <
 
 ==============================================================================
-5. Commands                                                    *svss-commands*
+COMMANDS                                                       *svss-commands*
 
 :SvssScan                                                          *:SvssScan*
                         Scan highlighting of the current buffer and convert
                         it into SVSS.
+                        (this command is at the experimental stage of
+                        development, so cannot compile its output yet)
 
 :SvssCompileBuffer [file]                                 *:SvssCompileBuffer*
                         Compile the current buffer, and show compilation
@@ -113,7 +206,7 @@ rgb({red}, {green}, {blue})                                *svss-function-rgb*
 
 
 ==============================================================================
-6. Options                                                      *svss-options*
+OPTIONS                                                         *svss-options*
 
 g:svss_auto_source                                        *g:svss_auto_source*
                         If enabled, source SVSS file automatically when
@@ -121,7 +214,7 @@ g:svss_auto_source                                        *g:svss_auto_source*
 
 
 ==============================================================================
-7. About                                                          *svss-about*
+ABOUT                                                             *svss-about*
 
 |svss.vim| is developed by cocopon and licensed under the MIT License.
 Visit the project page for the latest version:
