@@ -58,7 +58,7 @@ endfunction
 function! svss#compiler#compile_rule_(ruleset, rule) dict
 	let declarations = a:rule.declarations()
 	if empty(declarations)
-		return ''
+		return []
 	endif
 
 	let args = []
