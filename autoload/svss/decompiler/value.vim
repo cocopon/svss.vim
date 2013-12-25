@@ -32,7 +32,6 @@ endfunction
 
 
 function! svss#decompiler#value#list(list)
-	echo a:list
 	let items = map(copy(a:list.items()), 'v:val.name()')
 	return join(items, ', ')
 endfunction
