@@ -4,18 +4,23 @@
 ==============================================================================
 CONTENTS                                                       *svss-contents*
 
-  Intro .......................... |svss-intro|
-  Quickstart ..................... |svss-quickstart|
-  Syntax ......................... |svss-syntax|
-  Directives ..................... |svss-directives|
-  Functions ...................... |svss-functions|
-  Commands ....................... |svss-commands|
-  Options ........................ |svss-options|
-  About .......................... |svss-about|
+  1. Intro ....................... |svss-intro|
+  2. Quickstart .................. |svss-quickstart|
+  3. Syntax ...................... |svss-syntax|
+  3.1 Values ..................... |svss-syntax-values|
+  3.2 Directive .................. |svss-syntax-directive|
+  3.3 Rule ....................... |svss-syntax-rule|
+  3.4 Definition ................. |svss-syntax-definition|
+  3.5 Function ................... |svss-syntax-function|
+  4. Directives .................. |svss-directives|
+  5. Functions ................... |svss-functions|
+  6. Commands .................... |svss-commands|
+  7. Options ..................... |svss-options|
+  8. About ....................... |svss-about|
 
 
 ==============================================================================
-INTRO                                                             *svss-intro*
+1. Intro                                                          *svss-intro*
 
 Are you a good friends with CSS or SCSS?
 *SVSS* is a style sheet for Vim. You can easily create your own color scheme
@@ -33,7 +38,7 @@ It will be compiled as the following command:
 <
 
 ==============================================================================
-QUICKSTART                                                   *svss-quickstart*
+2. Quickstart                                                *svss-quickstart*
 
 First, create a new buffer and add required directives:
 >
@@ -94,13 +99,109 @@ color scheme with the following command:
 <
 
 ==============================================================================
-SYNTAX                                                           *svss-syntax*
+3. Syntax                                                        *svss-syntax*
 
-TODO
+
+------------------------------------------------------------------------------
+3.1 Values                                                *svss-syntax-values*
+
+There are six types of values:
+
+Number                                                     *svss-value-number*
+                A signed number. Examples: >
+                    123
+                    -123
+                    3.14
+                    50%
+
+String                                                     *svss-value-string*
+                A string. Examples: >
+                    "hello, world"
+                    'hello, world'
+<
+Variable                                                 *svss-value-variable*
+                A variable. Examples: >
+                    $hoge
+                    $foo-bar
+<
+Color                                                       *svss-value-color*
+                A color represented by #rrggbb format. Examples: >
+                    #112233
+                    #ddeeff
+<
+Word                                                         *svss-value-word*
+                A word reserved by Vim. Examples: >
+                    dark
+                    light
+                    reverse
+                    NONE
+<
+List                                                         *svss-value-list*
+                A list of words. Examples: >
+                    bold, underline
+                    bold, italic, reverse
+<
+
+------------------------------------------------------------------------------
+3.2 Directive                                          *svss-syntax-directive*
+
+Directive is used to specify attributes about the color scheme itself. See
+|svss-directives| for available directives.
+
+
+------------------------------------------------------------------------------
+3.3 Rule                                                    *svss-syntax-rule*
+
+Rule is declaration set of a highlight group. One rule correspond to a
+signle highlight group. For example:
+>
+    Normal {
+        guibg: #000000;
+        guifg: #ffffff;
+    }
+<
+It will be compiled as the following command:
+>
+    hi! Normal guibg=#000000 guifg=#ffffff
+<
+You can specify multiple groups to set same declarations. Separate each
+group by comma:
+>
+    ColorColumn, CursorColumn, CursorLine {
+        guifg: #555555;
+    }
+<
+It will be compiled as follows:
+>
+    hi! ColorColumn guifg=#555555
+    hi! CursorColumn guifg=#555555
+    hi! CursorLine guifg=#555555
+<
+
+------------------------------------------------------------------------------
+3.4 Definition                                        *svss-syntax-definition*
+
+You can use variable to define common values. Variable names are prefixed
+with a dollar sign ($):
+>
+    $base-hue: 230;
+<
+Variable can be used in declarations:
+>
+    Normal {
+        guibg: hsl($base-hue, 10%, 80%);
+    }
+<
+
+------------------------------------------------------------------------------
+3.5 Function                                            *svss-syntax-function*
+
+SVSS provides useful functions to adjust colors. See |svss-functions| for
+Available functions.
 
 
 ==============================================================================
-DIRECTIVES                                                   *svss-directives*
+4. Directives                                                *svss-directives*
 
 @background [background]                           *svss-directive-background*
                         Used as 'background' of the color scheme.
@@ -135,7 +236,7 @@ DIRECTIVES                                                   *svss-directives*
 <
 
 ==============================================================================
-FUNCTIONS                                                     *svss-functions*
+5. Functions                                                  *svss-functions*
 
 adjust-color({color}[,                            *svss-function-adjust-color*
     {red}, {green}, {blue},
@@ -188,7 +289,7 @@ rgb({red}, {green}, {blue})                                *svss-function-rgb*
 <
 
 ==============================================================================
-COMMANDS                                                       *svss-commands*
+6. Commands                                                    *svss-commands*
 
 :SvssScan                                                          *:SvssScan*
                         Scan highlighting of the current buffer and convert
@@ -206,7 +307,7 @@ COMMANDS                                                       *svss-commands*
 
 
 ==============================================================================
-OPTIONS                                                         *svss-options*
+7. Options                                                      *svss-options*
 
 g:svss_auto_source                                        *g:svss_auto_source*
                         If enabled, source SVSS file automatically when
@@ -214,7 +315,7 @@ g:svss_auto_source                                        *g:svss_auto_source*
 
 
 ==============================================================================
-ABOUT                                                             *svss-about*
+8. About                                                          *svss-about*
 
 |svss.vim| is developed by cocopon and licensed under the MIT License.
 Visit the project page for the latest version:
