@@ -3,7 +3,7 @@
 
 
 if exists("b:did_ftplugin")
-  finish
+	finish
 endif
 let b:did_ftplugin = 1
 
@@ -13,7 +13,7 @@ set cpo&vim
 
 
 augroup svss
-  autocmd!
+	autocmd!
 	autocmd BufWrite <buffer> call svss#bufwrite()
 augroup END
 let b:undo_ftplugin = 'au! svss'
