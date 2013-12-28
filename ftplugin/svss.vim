@@ -17,6 +17,10 @@ augroup svss
 	autocmd BufWrite <buffer> call svss#bufwrite()
 augroup END
 let b:undo_ftplugin = 'au! svss'
+			\ . ' | setl cms< fo<'
+
+setlocal commentstring=//\ %s
+setlocal formatoptions-=t formatoptions+=cloqr
 
 
 let &cpo = s:cpo_save
