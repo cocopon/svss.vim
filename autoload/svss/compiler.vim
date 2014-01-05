@@ -43,7 +43,18 @@ function! svss#compiler#compile_value_(ruleset, value) dict
 		return a:value
 	endif
 
-	return a:value.evaluate(a:ruleset)
+	let value = a:value.evaluate(a:ruleset)
+	if type(value) == type(0)
+		return printf('%d', value)
+	elseif type(value) == type(0.0)
+		return (float2nr(value) * 1.0 == value)
+					\ ? printf('%d', float2nr(value))
+					\ : printf('%f', value)
+	elseif type(value) == type('')
+		return value
+	else
+		return string(value)
+	endif
 endfunction
 
 
