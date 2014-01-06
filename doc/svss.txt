@@ -47,7 +47,7 @@ First, create a new buffer and add required directives:
     @license 'MIT';
     @background dark;
 <
-And them append highlight groups. Here is an example of a rule to set
+And then append highlight groups. Here is an example of a rule to set
 attributes of normal text:
 >
     Normal {
@@ -145,8 +145,9 @@ List                                                         *svss-value-list*
 ------------------------------------------------------------------------------
 3.2 Directive                                          *svss-syntax-directive*
 
-Directive is used to specify attributes about the color scheme itself. See
-|svss-directives| for available directives.
+Directive is used to specify attributes about the color scheme itself.
+Directives are prefixed with a at sign (@). See |svss-directives| for
+available directives.
 
 
 ------------------------------------------------------------------------------
