@@ -14,7 +14,7 @@ set cpo&vim
 
 augroup svss
 	autocmd!
-	autocmd BufWrite <buffer> call svss#bufwrite()
+	autocmd BufWritePost <buffer> call svss#bufwrite()
 augroup END
 let b:undo_ftplugin = 'setl cms< fo<'
 			\ . ' | au! svss'
