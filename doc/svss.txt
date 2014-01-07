@@ -243,7 +243,7 @@ adjust-color({color}[,                            *svss-function-adjust-color*
     {red}, {green}, {blue},
     {hue}, {saturation}, {lightness}])
                         Adjust some components of the specified color. Use
-                        named parameter to specify each optional arguments.
+                        named parameter to specify optional arguments.
 >
                             String {
                                 guifg: adjust-color(
@@ -260,7 +260,9 @@ darken({color}, {amount})                               *svss-function-darken*
                             }
 <
 hsl({hue}, {saturation}, {lightness})                      *svss-function-hsl*
-                        Create a color from HSL components.
+                        Create a color from HSL components. {hue} must be in
+                        the range [0, 359], {saturation} and {lightness} in
+                        the range [0, 100%].
 >
                             String {
                                 guifg: hsl(120, 50%, 50%);
@@ -273,7 +275,7 @@ lighten({color}, {amount})                             *svss-function-lighten*
                                 guifg: lighten(#007f00, 10%);
                             }
 <
-mix({color1}, {color2}[, {weight})                         *svss-function-mix*
+mix({color1}, {color2}[, {weight}])                        *svss-function-mix*
                         Mix two colors. If {weight} is not specified, 50%
                         will be used.
 >
@@ -282,7 +284,8 @@ mix({color1}, {color2}[, {weight})                         *svss-function-mix*
                             }
 <
 rgb({red}, {green}, {blue})                                *svss-function-rgb*
-                        Create a color from RGB components.
+                        Create a color from RGB components. Each component
+                        must be in the range [0, 255].
 >
                             String {
                                 guifg: rgb(0, 127, 0);
