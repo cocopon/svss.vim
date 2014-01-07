@@ -298,7 +298,7 @@ rgb({red}, {green}, {blue})                                *svss-function-rgb*
 :SvssScan                                                          *:SvssScan*
                         Scan highlighting of the current buffer and convert
                         it into SVSS.
-                        (this command is at the experimental stage of
+                        (NOTE: This command is at the experimental stage of
                         development, so cannot compile its output yet)
 
 :SvssCompile [file]                                             *:SvssCompile*
