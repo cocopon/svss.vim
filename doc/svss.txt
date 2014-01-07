@@ -146,7 +146,7 @@ List                                                         *svss-value-list*
 3.2 Directive                                          *svss-syntax-directive*
 
 Directive is used to specify attributes about the color scheme itself.
-Directives are prefixed with a at sign (@). See |svss-directives| for
+Directives are prefixed with an at sign (@). See |svss-directives| for
 available directives.
 
 
