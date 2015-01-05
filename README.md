@@ -18,7 +18,7 @@ It will be compiled as the following command:
 ```
 
 SVSS provides various useful features to create a color scheme.
-See 'doc/svss.text' for full features.
+See `doc/svss.text` for full features.
 
 
 License
