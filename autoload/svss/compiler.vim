@@ -24,7 +24,7 @@ let s:simple_directives = {
 let s:date_format = '%Y-%m-%d %H:%M%z'
 
 
-function! svss#compiler#new()
+function! svss#compiler#new() abort
 	let compiler = {}
 	let compiler.bang_ = 1
 	let compiler.def_ = 0
@@ -38,7 +38,7 @@ function! svss#compiler#new()
 endfunction
 
 
-function! svss#compiler#compile_value_(ruleset, value) dict
+function! svss#compiler#compile_value_(ruleset, value) abort dict
 	if !exists('a:value.type')
 		return a:value
 	endif
@@ -58,7 +58,7 @@ function! svss#compiler#compile_value_(ruleset, value) dict
 endfunction
 
 
-function! svss#compiler#compile_declaration_(ruleset, rule, declaration) dict
+function! svss#compiler#compile_declaration_(ruleset, rule, declaration) abort dict
 	let value = a:declaration.value()
 	return printf('%s=%s',
 				\ a:declaration.property(),
@@ -66,7 +66,7 @@ function! svss#compiler#compile_declaration_(ruleset, rule, declaration) dict
 endfunction
 
 
-function! svss#compiler#compile_rule_(ruleset, rule) dict
+function! svss#compiler#compile_rule_(ruleset, rule) abort dict
 	let declarations = a:rule.declarations()
 	if empty(declarations)
 		return []
@@ -93,7 +93,7 @@ function! svss#compiler#compile_rule_(ruleset, rule) dict
 endfunction
 
 
-function! svss#compiler#compile_link_(directive) dict
+function! svss#compiler#compile_link_(directive) abort dict
 	let comps = ['hi' . (self.bang_ ? '!' : '')]
 	if self.def_
 		call add(comps, 'def')
@@ -107,7 +107,7 @@ function! svss#compiler#compile_link_(directive) dict
 endfunction
 
 
-function! svss#compiler#compile_internal_(ruleset) dict
+function! svss#compiler#compile_internal_(ruleset) abort dict
 	let result = {}
 
 	for name in keys(s:simple_directives)
@@ -140,7 +140,7 @@ function! svss#compiler#compile_internal_(ruleset) dict
 endfunction
 
 
-function! svss#compiler#compile(ruleset) dict
+function! svss#compiler#compile(ruleset) abort dict
 	if get(g:, 'svss_debug', 0)
 		return self.compile_internal_(a:ruleset)
 	endif

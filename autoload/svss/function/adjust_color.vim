@@ -6,12 +6,12 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#function#adjust_color#exists()
+function! svss#function#adjust_color#exists() abort
 	return 1
 endfunction
 
 
-function! svss#function#adjust_color#execute(ruleset, func)
+function! svss#function#adjust_color#execute(ruleset, func) abort
 	call svss#function#validate_total_arguments(a:func, 1)
 	let args = a:func.arguments()
 	let color = args[0]

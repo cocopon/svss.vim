@@ -16,7 +16,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#ruleset#new(rules, definitions, directives)
+function! svss#ruleset#new(rules, definitions, directives) abort
 	let ruleset = {}
 	let ruleset.rules_ = a:rules
 	let ruleset.defs_ = a:definitions
@@ -31,22 +31,22 @@ function! svss#ruleset#new(rules, definitions, directives)
 endfunction
 
 
-function! svss#ruleset#rules() dict
+function! svss#ruleset#rules() abort dict
 	return self.rules_
 endfunction
 
 
-function! svss#ruleset#definitions() dict
+function! svss#ruleset#definitions() abort dict
 	return self.defs_
 endfunction
 
 
-function! svss#ruleset#directives() dict
+function! svss#ruleset#directives() abort dict
 	return self.directives_
 endfunction
 
 
-function! svss#ruleset#vim() dict
+function! svss#ruleset#vim() abort dict
 	let lines = []
 	for rule in self.rules_
 		call add(lines, rule.vim())
@@ -56,7 +56,7 @@ function! svss#ruleset#vim() dict
 endfunction
 
 
-function! svss#ruleset#variable_value(name) dict
+function! svss#ruleset#variable_value(name) abort dict
 	for def in self.defs_
 		if def.name() ==# a:name
 			return def.value()
@@ -68,7 +68,7 @@ function! svss#ruleset#variable_value(name) dict
 endfunction
 
 
-function! svss#ruleset#find_directives(name) dict
+function! svss#ruleset#find_directives(name) abort dict
 	let directives = copy(self.directives_)
 	return filter(directives, 'v:val.name() ==# a:name')
 endfunction

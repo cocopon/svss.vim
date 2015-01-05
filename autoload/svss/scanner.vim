@@ -18,7 +18,7 @@ let s:value_types = {
 			\ }
 
 
-function! svss#scanner#scan()
+function! svss#scanner#scan() abort
 	let entries = colorswatch#source#all#collect()
 
 	let rules = []
@@ -45,7 +45,7 @@ function! svss#scanner#scan()
 endfunction
 
 
-function! s:rule(name, attrs)
+function! s:rule(name, attrs) abort
 	let declarations = []
 	for key in keys(a:attrs)
 		let value = s:scan_declaration_value(key, a:attrs[key])
@@ -63,7 +63,7 @@ function! s:rule(name, attrs)
 endfunction
 
 
-function! s:scan_declaration_value(property, raw_value)
+function! s:scan_declaration_value(property, raw_value) abort
 	let type = get(s:value_types, a:property, '')
 	if empty(type)
 		return ''
@@ -81,19 +81,19 @@ function! s:scan_declaration_value(property, raw_value)
 endfunction
 
 
-function! s:string_directive(name, string)
+function! s:string_directive(name, string) abort
 	let args = [svss#value#string#new(a:string)]
 	return svss#directive#new(a:name, args)
 endfunction
 
 
-function! s:word_directive(name, word)
+function! s:word_directive(name, word) abort
 	let args = [svss#value#word#new(a:word)]
 	return svss#directive#new(a:name, args)
 endfunction
 
 
-function! s:link_directive(from, to)
+function! s:link_directive(from, to) abort
 	let args = [a:from, a:to]
 	return svss#directive#new('link', args)
 endfunction

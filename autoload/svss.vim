@@ -11,7 +11,7 @@ let s:default_template_path = expand(s:plugin_dir . '/../data/template.txt')
 
 
 " Global {{{
-function! svss#compile_buffer(...)
+function! svss#compile_buffer(...) abort
 	let lines = getline(1, '$')
 	let result = s:compile(lines)
 
@@ -25,7 +25,7 @@ function! svss#compile_buffer(...)
 endfunction
 
 
-function! svss#source()
+function! svss#source() abort
 	let lines = getline(1, '$')
 	let ruleset = s:parse(lines)
 	let compiler = s:build_compiler()
@@ -40,14 +40,14 @@ function! svss#source()
 endfunction
 
 
-function! svss#bufwrite()
+function! svss#bufwrite() abort
 	if get(g:, 'svss_auto_source', 0)
 		call svss#source()
 	end
 endfunction
 
 
-function! svss#scan()
+function! svss#scan() abort
 	let ruleset = svss#scanner#scan()
 	let lines = svss#decompiler#decompile(ruleset)
 	call s:new_buffer(lines)
@@ -57,19 +57,19 @@ endfunction
 
 
 " Local {{{
-function! s:parse(lines)
+function! s:parse(lines) abort
 	let text = join(a:lines, "\n")
 	return svss#parser#parse(text)
 endfunction
 
 
-function! s:build_compiler()
+function! s:build_compiler() abort
 	" TODO: Apply global options
 	return svss#compiler#new()
 endfunction
 
 
-function! s:compile(lines)
+function! s:compile(lines) abort
 	let ruleset = s:parse(a:lines)
 	let compiler = s:build_compiler()
 	let data = compiler.compile(ruleset)
@@ -84,7 +84,7 @@ function! s:compile(lines)
 endfunction
 
 
-function! s:new_buffer(lines)
+function! s:new_buffer(lines) abort
 	new
 	call append(0, a:lines)
 	normal! Gdd

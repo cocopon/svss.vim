@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#parser#parse_function(lexer)
+function! svss#parser#parse_function(lexer) abort
 	let args = []
 	let opt_args = {}
 
@@ -21,7 +21,7 @@ function! svss#parser#parse_function(lexer)
 	while a:lexer.has_next()
 		let first_token = svss#parser#next_token(a:lexer)
 		let second_token = svss#parser#next_token(a:lexer)
-		if first_token.type == 'variable'
+		if first_token.type ==? 'variable'
 					\ && s:is_token(second_token, 'symbol', ':')
 			" Named argument
 			let opt_args[first_token.text] = svss#parser#parse_value(a:lexer)
@@ -48,7 +48,7 @@ function! svss#parser#parse_function(lexer)
 endfunction
 
 
-function! svss#parser#parse_list(lexer)
+function! svss#parser#parse_list(lexer) abort
 	let items = []
 
 	while a:lexer.has_next()
@@ -71,7 +71,7 @@ function! svss#parser#parse_list(lexer)
 endfunction
 
 
-function! svss#parser#parse_value(lexer)
+function! svss#parser#parse_value(lexer) abort
 	let token = svss#parser#next_token(a:lexer)
 	let result = {}
 
@@ -100,7 +100,7 @@ function! svss#parser#parse_value(lexer)
 endfunction
 
 
-function! svss#parser#parse_declaration(lexer)
+function! svss#parser#parse_declaration(lexer) abort
 	let property = svss#parser#next_token(a:lexer).text
 
 	let separator = svss#parser#next_token(a:lexer)
@@ -119,7 +119,7 @@ function! svss#parser#parse_declaration(lexer)
 endfunction
 
 
-function! svss#parser#parse_rule(lexer)
+function! svss#parser#parse_rule(lexer) abort
 	let selectors = []
 	while a:lexer.has_next()
 		call add(selectors, svss#parser#next_token(a:lexer).text)
@@ -154,7 +154,7 @@ function! svss#parser#parse_rule(lexer)
 endfunction
 
 
-function! svss#parser#parse_definition(lexer)
+function! svss#parser#parse_definition(lexer) abort
 	let name = svss#parser#next_token(a:lexer).text
 
 	let token = svss#parser#next_token(a:lexer)
@@ -173,7 +173,7 @@ function! svss#parser#parse_definition(lexer)
 endfunction
 
 
-function! svss#parser#parse_directive(lexer)
+function! svss#parser#parse_directive(lexer) abort
 	let name = svss#parser#next_token(a:lexer).text
 
 	try
@@ -195,7 +195,7 @@ function! svss#parser#parse_directive(lexer)
 endfunction
 
 
-function! svss#parser#next_token(lexer)
+function! svss#parser#next_token(lexer) abort
 	if !a:lexer.has_next()
 		throw 'Unexpected EOF'
 	endif
@@ -204,7 +204,7 @@ function! svss#parser#next_token(lexer)
 endfunction
 
 
-function! svss#parser#parse_internal_(lexer)
+function! svss#parser#parse_internal_(lexer) abort
 	let rules = []
 	let definitions = []
 	let directives = []
@@ -228,7 +228,7 @@ function! svss#parser#parse_internal_(lexer)
 endfunction
 
 
-function! svss#parser#parse(text)
+function! svss#parser#parse(text) abort
 	let reader = svss#char_reader#new(a:text)
 	let lexer = svss#lexer#new(reader)
 
@@ -246,12 +246,12 @@ endfunction
 
 
 " private {{{
-function! s:is_token(token, type, text)
+function! s:is_token(token, type, text) abort
 	return a:token.type ==# a:type && a:token.text ==# a:text
 endfunction
 
 
-function! s:is_function(token)
+function! s:is_function(token) abort
 	return svss#function#exists(a:token.text)
 endfunction
 " }}}

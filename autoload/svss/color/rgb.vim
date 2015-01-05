@@ -6,12 +6,12 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#color#rgb#to_rgb(comps)
+function! svss#color#rgb#to_rgb(comps) abort
 	return a:comps
 endfunction
 
 
-function! svss#color#rgb#from_rgb(comps)
+function! svss#color#rgb#from_rgb(comps) abort
 	return a:comps
 endfunction
 

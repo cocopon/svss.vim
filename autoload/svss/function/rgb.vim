@@ -6,12 +6,12 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#function#rgb#exists()
+function! svss#function#rgb#exists() abort
 	return 1
 endfunction
 
 
-function! svss#function#rgb#execute(ruleset, func)
+function! svss#function#rgb#execute(ruleset, func) abort
 	call svss#function#validate_total_arguments(a:func, 3)
 	let comps = map(copy(a:func.arguments()), 'v:val.evaluate(a:ruleset)')
 	return svss#color#join(comps)

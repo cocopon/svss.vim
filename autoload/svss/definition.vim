@@ -13,7 +13,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#definition#new(name, value)
+function! svss#definition#new(name, value) abort
 	let def = {}
 	let def.name_ = a:name
 	let def.value_ = a:value
@@ -27,17 +27,17 @@ function! svss#definition#new(name, value)
 endfunction
 
 
-function! svss#definition#type() dict
+function! svss#definition#type() abort dict
 	return 'definition'
 endfunction
 
 
-function! svss#definition#name() dict
+function! svss#definition#name() abort dict
 	return self.name_
 endfunction
 
 
-function! svss#definition#value() dict
+function! svss#definition#value() abort dict
 	return self.value_
 endfunction
 

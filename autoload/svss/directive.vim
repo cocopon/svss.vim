@@ -13,7 +13,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#directive#new(name, arguments)
+function! svss#directive#new(name, arguments) abort
 	let directive = {}
 	let directive.name_ = a:name
 	let directive.args_ = a:arguments
@@ -27,17 +27,17 @@ function! svss#directive#new(name, arguments)
 endfunction
 
 
-function! svss#directive#name() dict
+function! svss#directive#name() abort dict
 	return self.name_
 endfunction
 
 
-function! svss#directive#argument(index) dict
+function! svss#directive#argument(index) abort dict
 	return self.args_[a:index]
 endfunction
 
 
-function! svss#directive#arguments() dict
+function! svss#directive#arguments() abort dict
 	return self.args_
 endfunction
 

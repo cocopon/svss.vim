@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#util#bound(value, min, max)
+function! svss#util#bound(value, min, max) abort
 	let result = (a:value < a:min) ? a:min : a:value
 	return (result > a:max) ? a:max : result
 endfunction

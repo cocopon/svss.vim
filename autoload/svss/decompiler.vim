@@ -9,7 +9,7 @@ set cpo&vim
 let s:indent = "\t"
 
 
-function! svss#decompiler#decompile(ruleset)
+function! svss#decompiler#decompile(ruleset) abort
 	let blocks = []
 
 	let directives = a:ruleset.directives()
@@ -60,7 +60,7 @@ function! svss#decompiler#decompile(ruleset)
 endfunction
 
 
-function! svss#decompiler#directive(directive)
+function! svss#decompiler#directive(directive) abort
 	try
 		let func_name = printf('svss#decompiler#directive#%s',
 					\ a:directive.name())
@@ -74,14 +74,14 @@ function! svss#decompiler#directive(directive)
 endfunction
 
 
-function! svss#decompiler#definition(definition)
+function! svss#decompiler#definition(definition) abort
 	return printf('$%s: %s',
 				\ a:definition.name(),
 				\ a:definition.value())
 endfunction
 
 
-function! svss#decompiler#rule(rule)
+function! svss#decompiler#rule(rule) abort
 	let lines = []
 
 	let selectors = join(a:rule.selectors(), ', ')
@@ -95,7 +95,7 @@ function! svss#decompiler#rule(rule)
 endfunction
 
 
-function! svss#decompiler#declaration(declaration)
+function! svss#decompiler#declaration(declaration) abort
 	let value = a:declaration.value()
 	return printf('%s%s: %s',
 				\ s:indent,
@@ -104,7 +104,7 @@ function! svss#decompiler#declaration(declaration)
 endfunction
 
 
-function! svss#decompiler#value(value)
+function! svss#decompiler#value(value) abort
 	if type(a:value) != type({})
 		" Raw value
 		return a:value

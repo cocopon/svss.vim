@@ -15,7 +15,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#function#new(name, args, opt_args)
+function! svss#function#new(name, args, opt_args) abort
 	let func = {}
 	let func.name_ = a:name
 	let func.args_ = a:args
@@ -31,27 +31,27 @@ endfunction
 
 
 " public {{{
-function! svss#function#type() dict
+function! svss#function#type() abort dict
 	return 'function'
 endfunction
 
 
-function! svss#function#arguments() dict
+function! svss#function#arguments() abort dict
 	return self.args_
 endfunction
 
 
-function! svss#function#name() dict
+function! svss#function#name() abort dict
 	return self.name_
 endfunction
 
 
-function! svss#function#opt_arguments() dict
+function! svss#function#opt_arguments() abort dict
 	return self.opt_args_
 endfunction
 
 
-function! svss#function#evaluate(ruleset) dict
+function! svss#function#evaluate(ruleset) abort dict
 	try
 		let func_name = printf('svss#function#%s#execute',
 					\ s:normalize_name(self.name_))
@@ -67,7 +67,7 @@ endfunction
 
 
 " static {{{
-function! svss#function#exists(name)
+function! svss#function#exists(name) abort
 	try
 		let func_name = printf('svss#function#%s#exists',
 					\ s:normalize_name(a:name))
@@ -80,7 +80,7 @@ function! svss#function#exists(name)
 endfunction
 
 
-function! svss#function#validate_total_arguments(func, expected)
+function! svss#function#validate_total_arguments(func, expected) abort
 	let actual = len(a:func.arguments())
 	if actual != a:expected
 		throw printf('Wrong number of arguments: %d for %d',
@@ -91,7 +91,7 @@ endfunction
 
 
 " private {{{
-function! s:normalize_name(name)
+function! s:normalize_name(name) abort
 	return substitute(a:name, '-', '_', 'g')
 endfunction
 " }}}

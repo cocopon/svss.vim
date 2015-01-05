@@ -12,7 +12,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#rule#new(selectors, declarations)
+function! svss#rule#new(selectors, declarations) abort
 	let rule = {}
 	let rule.selectors_ = a:selectors
 	let rule.declarations_ = a:declarations
@@ -26,12 +26,12 @@ function! svss#rule#new(selectors, declarations)
 endfunction
 
 
-function! svss#rule#selectors() dict
+function! svss#rule#selectors() abort dict
 	return self.selectors_
 endfunction
 
 
-function! svss#rule#declarations() dict
+function! svss#rule#declarations() abort dict
 	return self.declarations_
 endfunction
 

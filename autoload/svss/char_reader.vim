@@ -14,7 +14,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#char_reader#new(text)
+function! svss#char_reader#new(text) abort
 	let reader = {}
 	let reader.text_ = a:text
 	let reader.pos_ = 0
@@ -30,23 +30,23 @@ function! svss#char_reader#new(text)
 endfunction
 
 
-function! svss#char_reader#is_eof() dict
+function! svss#char_reader#is_eof() abort dict
 	return self.pos_ >= self.len_
 endfunction
 
 
-function! svss#char_reader#lnum() dict
+function! svss#char_reader#lnum() abort dict
 	return self.lnum_
 endfunction
 
 
-function! svss#char_reader#read() dict
+function! svss#char_reader#read() abort dict
 	if self.is_eof()
 		return ''
 	endif
 
 	let result = self.text_[self.pos_]
-	if result == "\n"
+	if result ==? "\n"
 		let self.lnum_ += 1
 	endif
 
@@ -56,7 +56,7 @@ function! svss#char_reader#read() dict
 endfunction
 
 
-function! svss#char_reader#unread() dict
+function! svss#char_reader#unread() abort dict
 	if self.pos_ <= 0
 		throw 'Cannot unread a character'
 	endif

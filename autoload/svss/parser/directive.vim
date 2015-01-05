@@ -6,32 +6,32 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#parser#directive#template(lexer)
+function! svss#parser#directive#template(lexer) abort
 	return s:parse_single_text('template', a:lexer)
 endfunction
 
 
-function! svss#parser#directive#name(lexer)
+function! svss#parser#directive#name(lexer) abort
 	return s:parse_single_text('name', a:lexer)
 endfunction
 
 
-function! svss#parser#directive#background(lexer)
+function! svss#parser#directive#background(lexer) abort
 	return s:parse_single_text('background', a:lexer)
 endfunction
 
 
-function! svss#parser#directive#maintainer(lexer)
+function! svss#parser#directive#maintainer(lexer) abort
 	return s:parse_single_text('maintainer', a:lexer)
 endfunction
 
 
-function! svss#parser#directive#license(lexer)
+function! svss#parser#directive#license(lexer) abort
 	return s:parse_single_text('license', a:lexer)
 endfunction
 
 
-function! svss#parser#directive#link(lexer)
+function! svss#parser#directive#link(lexer) abort
 	let from = svss#parser#next_token(a:lexer)
 
 	let token = svss#parser#next_token(a:lexer)
@@ -45,7 +45,7 @@ function! svss#parser#directive#link(lexer)
 endfunction
 
 
-function! s:parse_single_text(name, lexer)
+function! s:parse_single_text(name, lexer) abort
 	let token = svss#parser#next_token(a:lexer)
 	return svss#directive#new(a:name, [token.text])
 endfunction

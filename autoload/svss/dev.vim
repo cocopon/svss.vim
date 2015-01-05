@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#dev#inspect()
+function! svss#dev#inspect() abort
 	let synid = synID(line('.'), col('.'), 1)
 	let names = exists(':ColorSwatchGenerate')
 				\ ? s:hi_chain_with_colorswatch(synid)
@@ -15,7 +15,7 @@ function! svss#dev#inspect()
 endfunction
 
 
-function! s:hi_chain(synid)
+function! s:hi_chain(synid) abort
 	let name = synIDattr(a:synid, 'name')
 	let names = []
 
@@ -32,7 +32,7 @@ endfunction
 
 " Trace hi-group link with colorswatch.vim.
 " (It can show more detailed information)
-function! s:hi_chain_with_colorswatch(synid)
+function! s:hi_chain_with_colorswatch(synid) abort
 	let entries = colorswatch#source#all#collect()
 	let entryset = colorswatch#entryset#new(entries)
 

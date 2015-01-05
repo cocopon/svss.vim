@@ -13,7 +13,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#value#number#new(value)
+function! svss#value#number#new(value) abort
 	let num = {}
 	let num.value_ = a:value
 
@@ -26,20 +26,20 @@ function! svss#value#number#new(value)
 endfunction
 
 
-function! svss#value#number#type()
+function! svss#value#number#type() abort
 	return 'number'
 endfunction
 
 
-function! svss#value#number#value() dict
+function! svss#value#number#value() abort dict
 	return self.value_
 endfunction
 
 
-function! svss#value#number#evaluate(ruleset) dict
+function! svss#value#number#evaluate(ruleset) abort dict
 	let value = str2float(self.value_)
 
-	if self.value_[len(self.value_) - 1] == '%'
+	if self.value_[len(self.value_) - 1] ==? '%'
 		let value = value * 0.01
 	endif
 

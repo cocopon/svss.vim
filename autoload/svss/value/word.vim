@@ -13,7 +13,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#value#word#new(name)
+function! svss#value#word#new(name) abort
 	let word = {}
 	let word.name_ = a:name
 
@@ -26,17 +26,17 @@ function! svss#value#word#new(name)
 endfunction
 
 
-function! svss#value#word#type() dict
+function! svss#value#word#type() abort dict
 	return 'word'
 endfunction
 
 
-function! svss#value#word#name() dict
+function! svss#value#word#name() abort dict
 	return self.name_
 endfunction
 
 
-function! svss#value#word#evaluate(ruleset) dict
+function! svss#value#word#evaluate(ruleset) abort dict
 	return self.name_
 endfunction
 

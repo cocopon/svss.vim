@@ -6,12 +6,12 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#function#mix#exists()
+function! svss#function#mix#exists() abort
 	return 1
 endfunction
 
 
-function! svss#function#mix#execute(ruleset, func)
+function! svss#function#mix#execute(ruleset, func) abort
 	let args = a:func.arguments()
 
 	let rgb_comps1 = svss#color#split(args[0].evaluate(a:ruleset))

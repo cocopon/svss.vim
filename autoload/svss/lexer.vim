@@ -42,7 +42,7 @@ let s:comment_first_ch = '/'
 let s:comment_second_ch = '/'
 
 
-function! svss#lexer#new(char_reader)
+function! svss#lexer#new(char_reader) abort
 	let lexer = {}
 	let lexer.reader_ = a:char_reader
 	let lexer.buffer_ = []
@@ -57,7 +57,7 @@ function! svss#lexer#new(char_reader)
 endfunction
 
 
-function! svss#lexer#has_next() dict
+function! svss#lexer#has_next() abort dict
 	if self.pos_ < -1
 		return 1
 	endif
@@ -71,12 +71,12 @@ function! svss#lexer#has_next() dict
 endfunction
 
 
-function! svss#lexer#lnum() dict
+function! svss#lexer#lnum() abort dict
 	return self.reader_.lnum()
 endfunction
 
 
-function! svss#lexer#read_chars_(pattern) dict
+function! svss#lexer#read_chars_(pattern) abort dict
 	let text = ''
 	while 1
 		let ch = self.reader_.read()
@@ -94,32 +94,32 @@ function! svss#lexer#read_chars_(pattern) dict
 endfunction
 
 
-function! svss#lexer#read_number_() dict
+function! svss#lexer#read_number_() abort dict
 	return s:token('number', self.read_chars_(s:pattern_number))
 endfunction
 
 
-function! svss#lexer#read_word_() dict
+function! svss#lexer#read_word_() abort dict
 	return s:token('word', self.read_chars_(s:pattern_word))
 endfunction
 
 
-function! svss#lexer#read_symbol_() dict
+function! svss#lexer#read_symbol_() abort dict
 	return s:token('symbol', self.reader_.read())
 endfunction
 
 
-function! svss#lexer#read_whitespace_() dict
+function! svss#lexer#read_whitespace_() abort dict
 	return s:token('whitespace', self.read_chars_(s:pattern_whitespace))
 endfunction
 
 
-function! svss#lexer#read_newline_() dict
+function! svss#lexer#read_newline_() abort dict
 	return s:token('newline', self.read_chars_(s:pattern_newline))
 endfunction
 
 
-function! svss#lexer#read_variable_() dict
+function! svss#lexer#read_variable_() abort dict
 	" Skip prefix '$'
 	call self.reader_.read()
 
@@ -127,7 +127,7 @@ function! svss#lexer#read_variable_() dict
 endfunction
 
 
-function! svss#lexer#read_directive_() dict
+function! svss#lexer#read_directive_() abort dict
 	" Skip prefix '@'
 	call self.reader_.read()
 
@@ -135,7 +135,7 @@ function! svss#lexer#read_directive_() dict
 endfunction
 
 
-function! svss#lexer#read_string_() dict
+function! svss#lexer#read_string_() abort dict
 	let reader = self.reader_
 	let quote = reader.read()
 	let text = ''
@@ -162,7 +162,7 @@ function! svss#lexer#read_string_() dict
 endfunction
 
 
-function! svss#lexer#read_comment_() dict
+function! svss#lexer#read_comment_() abort dict
 	let reader = self.reader_
 	let text = ''
 
@@ -179,7 +179,7 @@ function! svss#lexer#read_comment_() dict
 endfunction
 
 
-function! svss#lexer#read_color_() dict
+function! svss#lexer#read_color_() abort dict
 	let reader = self.reader_
 	let text = ''
 
@@ -196,7 +196,7 @@ function! svss#lexer#read_color_() dict
 endfunction
 
 
-function! svss#lexer#next_token() dict
+function! svss#lexer#next_token() abort dict
 	if self.pos_ <= -1
 		let result = self.buffer_[self.pos_]
 		let self.pos_ += 1
@@ -236,7 +236,7 @@ function! svss#lexer#next_token() dict
 endfunction
 
 
-function! svss#lexer#token_type_() dict
+function! svss#lexer#token_type_() abort dict
 	let ch = self.reader_.read()
 	if empty(ch)
 		return ''
@@ -274,7 +274,7 @@ function! svss#lexer#token_type_() dict
 endfunction
 
 
-function! svss#lexer#unread() dict
+function! svss#lexer#unread() abort dict
 	if self.pos_ < -len(self.buffer_)
 		throw 'lexer: Cannot unread'
 	endif
@@ -285,7 +285,7 @@ function! svss#lexer#unread() dict
 endfunction
 
 
-function! s:token(type, text)
+function! s:token(type, text) abort
 	return {
 				\ 	'type': a:type,
 				\ 	'text': a:text,

@@ -12,7 +12,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#value#string#new(value)
+function! svss#value#string#new(value) abort
 	let str = {}
 	let str.value_ = a:value
 
@@ -25,12 +25,12 @@ function! svss#value#string#new(value)
 endfunction
 
 
-function! svss#value#string#type()
+function! svss#value#string#type() abort
 	return 'string'
 endfunction
 
 
-function! svss#value#string#value() dict
+function! svss#value#string#value() abort dict
 	return self.value_
 endfunction
 

@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#color#hsl#to_rgb(comps)
+function! svss#color#hsl#to_rgb(comps) abort
 	if len(a:comps) != 3
 		return []
 	endif
@@ -40,7 +40,7 @@ function! svss#color#hsl#to_rgb(comps)
 endfunction
 
 
-function! svss#color#hsl#from_rgb(comps)
+function! svss#color#hsl#from_rgb(comps) abort
 	if len(a:comps) != 3
 		return []
 	endif
@@ -81,7 +81,7 @@ function! svss#color#hsl#from_rgb(comps)
 endfunction
 
 
-function! s:hsl2rgb_comp(comp, min, max)
+function! s:hsl2rgb_comp(comp, min, max) abort
 	let c = a:comp
 	let result = 0
 

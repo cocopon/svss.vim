@@ -12,7 +12,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#declaration#new(property, value)
+function! svss#declaration#new(property, value) abort
 	let declaration = {}
 	let declaration.property_ = a:property
 	let declaration.value_ = a:value
@@ -26,12 +26,12 @@ function! svss#declaration#new(property, value)
 endfunction
 
 
-function! svss#declaration#property() dict
+function! svss#declaration#property() abort dict
 	return self.property_
 endfunction
 
 
-function! svss#declaration#value() dict
+function! svss#declaration#value() abort dict
 	return self.value_
 endfunction
 

@@ -6,27 +6,27 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! svss#decompiler#directive#name(directive)
+function! svss#decompiler#directive#name(directive) abort
 	return s:decompile_single_value(a:directive)
 endfunction
 
 
-function! svss#decompiler#directive#background(directive)
+function! svss#decompiler#directive#background(directive) abort
 	return s:decompile_single_value(a:directive)
 endfunction
 
 
-function! svss#decompiler#directive#maintainer(directive)
+function! svss#decompiler#directive#maintainer(directive) abort
 	return s:decompile_single_value(a:directive)
 endfunction
 
 
-function! svss#decompiler#directive#license(directive)
+function! svss#decompiler#directive#license(directive) abort
 	return s:decompile_single_value(a:directive)
 endfunction
 
 
-function! svss#decompiler#directive#link(directive)
+function! svss#decompiler#directive#link(directive) abort
 	let from = svss#decompiler#value(a:directive.argument(0))
 	let to = svss#decompiler#value(a:directive.argument(1))
 	return printf('@link %s to %s;',
@@ -35,7 +35,7 @@ function! svss#decompiler#directive#link(directive)
 endfunction
 
 
-function! s:decompile_single_value(directive)
+function! s:decompile_single_value(directive) abort
 	return printf('@%s %s;',
 				\ a:directive.name(),
 				\ svss#decompiler#value(a:directive.argument(0)))

@@ -11,7 +11,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#template#new(lines, pre_marker, post_marker)
+function! svss#template#new(lines, pre_marker, post_marker) abort
 	let template = {}
 	let template.lines_ = a:lines
 	let template.pre_ = a:pre_marker
@@ -26,7 +26,7 @@ function! svss#template#new(lines, pre_marker, post_marker)
 endfunction
 
 
-function! svss#template#apply(data) dict
+function! svss#template#apply(data) abort dict
 	let result = copy(self.lines_)
 
 	for key in keys(a:data)

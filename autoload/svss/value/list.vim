@@ -13,7 +13,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#value#list#new(items)
+function! svss#value#list#new(items) abort
 	let list = {}
 	let list.items_ = a:items
 
@@ -26,17 +26,17 @@ function! svss#value#list#new(items)
 endfunction
 
 
-function! svss#value#list#type() dict
+function! svss#value#list#type() abort dict
 	return 'list'
 endfunction
 
 
-function! svss#value#list#items() dict
+function! svss#value#list#items() abort dict
 	return self.items_
 endfunction
 
 
-function! svss#value#list#evaluate(ruleset) dict
+function! svss#value#list#evaluate(ruleset) abort dict
 	let items = map(copy(self.items_), 'v:val.evaluate(a:ruleset)')
 	return join(items, ',')
 endfunction

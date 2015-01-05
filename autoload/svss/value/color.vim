@@ -14,7 +14,7 @@ let s:method_names = [
 			\ ]
 
 
-function! svss#value#color#new(space, components)
+function! svss#value#color#new(space, components) abort
 	let color = {}
 	let color.space_ = a:space
 	let color.comps_ = a:components
@@ -28,22 +28,22 @@ function! svss#value#color#new(space, components)
 endfunction
 
 
-function! svss#value#color#type() dict
+function! svss#value#color#type() abort dict
 	return 'color'
 endfunction
 
 
-function! svss#value#color#space() dict
+function! svss#value#color#space() abort dict
 	return self.space_
 endfunction
 
 
-function! svss#value#color#components() dict
+function! svss#value#color#components() abort dict
 	return self.comps_
 endfunction
 
 
-function! svss#value#color#evaluate(ruleset) dict
+function! svss#value#color#evaluate(ruleset) abort dict
 	let ToRgb = function(printf('svss#color#%s#to_rgb', self.space_))
 	let comps = map(copy(self.comps_), 'v:val.evaluate(a:ruleset)')
 	let rgb_comps = ToRgb(comps)
