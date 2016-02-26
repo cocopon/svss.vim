@@ -24,8 +24,6 @@ function! s:char_reader.should_be_eof() abort
 	let len = len(s:quickbrown)
 	let i = 0
 
-	call s:assert.false(reader.is_eof())
-	call s:assert.false(empty(reader.read()))
 	while i < len
 		call s:assert.false(reader.is_eof())
 		call s:assert.false(empty(reader.read()))
