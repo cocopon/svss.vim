@@ -181,11 +181,12 @@ endfunction
 
 function! svss#lexer#read_color_() abort dict
 	let reader = self.reader_
-	let text = ''
+	let text = reader.read()
 
 	while !reader.is_eof()
 		let ch = reader.read()
 		if ch !~# '[0-9a-f]'
+			call reader.unread()
 			break
 		endif
 

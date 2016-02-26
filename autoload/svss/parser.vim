@@ -82,7 +82,8 @@ function! svss#parser#parse_value(lexer) abort
 	elseif token.type ==# 'string'
 		let result = svss#value#string#new(token.text)
 	elseif token.type ==# 'color'
-		let result = svss#value#color#new('rgb', svss#color#split(token.text))
+		let comps = map(copy(svss#color#split(token.text)), 'svss#value#number#new(v:val)')
+		let result = svss#value#color#new('rgb', comps)
 	elseif s:is_function(token)
 		call a:lexer.unread()
 		let result = svss#parser#parse_function(a:lexer)
