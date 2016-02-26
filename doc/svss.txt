@@ -7,11 +7,11 @@ CONTENTS                                                       *svss-contents*
 1. Intro ......................... |svss-intro|
 2. Quickstart .................... |svss-quickstart|
 3. Syntax ........................ |svss-syntax|
-  3.1 Values ..................... |svss-syntax-values|
-  3.2 Directive .................. |svss-syntax-directive|
-  3.3 Rule ....................... |svss-syntax-rule|
-  3.4 Definition ................. |svss-syntax-definition|
-  3.5 Function ................... |svss-syntax-function|
+  3.1 Values ....................... |svss-syntax-values|
+  3.2 Directive .................... |svss-syntax-directive|
+  3.3 Rule ......................... |svss-syntax-rule|
+  3.4 Definition ................... |svss-syntax-definition|
+  3.5 Function ..................... |svss-syntax-function|
 4. Directives .................... |svss-directives|
 5. Functions ..................... |svss-functions|
 6. Commands ...................... |svss-commands|
