@@ -14,7 +14,7 @@ SVSS is a style sheet for Vim. You can easily create your own color scheme with 
 It will be compiled as the following command:
 
 ```vim
-    hi! Normal guibg=#00000 guifg=#0000ff
+    hi! Normal guibg=#000000 guifg=#0000ff
 ```
 
 SVSS provides various useful features to create a color scheme.
